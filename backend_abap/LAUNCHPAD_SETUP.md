@@ -31,7 +31,7 @@ Tasto destro package `ZEDOC_CONFIG` → New → Other ABAP Repository Object →
 ## 2. Business Catalog (ADT)
 
 New → Other → **Cloud Identity & Access Management → Business Catalog**.
-- Name: `ZDOC_CONSERV_BC`
+- Name: `ZDOC_CONFIG_BC`
 - Tab **Apps** → Add → aggiungi la IAM App `ZDOC_CONFIG_UI_EXT`
   (crea automaticamente target mapping + tile per `zdocconfig`/`display`).
 - Aggiungi anche la IAM App auto-generata del binding OData (se presente) → propaga auth servizio.
@@ -40,8 +40,8 @@ New → Other → **Cloud Identity & Access Management → Business Catalog**.
 ## 3. Business Role (Fiori Launchpad — app "Maintain Business Roles")
 
 Apri il Launchpad admin → app **Maintain Business Roles**.
-- New → Business Role ID: `ZDOC_CONSERV_BR`, Description: Conservazione Documentale.
-- **Assign Business Catalogs** → aggiungi `ZDOC_CONSERV_BC`.
+- New → Business Role ID: `ZDOC_CONFIG_BR`, Description: Conservazione Documentale.
+- **Assign Business Catalogs** → aggiungi `ZDOC_CONFIG_BC`.
 - **Maintain Restrictions** → Write/Read (per app admin, Unrestricted o per company).
 - **Assign Business Users** → aggiungi il tuo utente (e utenti target).
 - Save.
@@ -49,13 +49,13 @@ Apri il Launchpad admin → app **Maintain Business Roles**.
 ## 4. Launchpad Space + Page (Fiori — "Manage Launchpad Spaces"/"Pages")
 
 App **Manage Launchpad Pages**:
-- New Page: `ZDOC_CONSERV_PAGE`, titolo "Conservazione".
-- Add Section "Conservazione" → Add Tiles/Apps → seleziona l'app `zdocconfig` (dal catalog `ZDOC_CONSERV_BC`).
+- New Page: `ZDOC_CONFIG_PAGE`, titolo "Conservazione".
+- Add Section "Conservazione" → Add Tiles/Apps → seleziona l'app `zdocconfig` (dal catalog `ZDOC_CONFIG_BC`).
 - Save + Publish.
 
 App **Manage Launchpad Spaces**:
-- New Space (o riusa esistente "Conservazione") → assegna la Page `ZDOC_CONSERV_PAGE`.
-- Assegna lo Space al Business Role `ZDOC_CONSERV_BR`.
+- New Space (o riusa esistente "Conservazione") → assegna la Page `ZDOC_CONFIG_PAGE`.
+- Assegna lo Space al Business Role `ZDOC_CONFIG_BR`.
 - Publish.
 
 ## 5. Test
@@ -71,6 +71,6 @@ deve aprirsi con tema completo + 3 tab + dati reali (5 Company / 5 Config / 4 Do
 |---|---|---|
 | Tile assente | Role/Space/Page non assegnati all'utente | verifica assegnazione utente al role + space al role |
 | App apre ma "Could not open app" | target mapping mancante | IAM App → inbound `zdocconfig`/`display` corretto |
-| 403 "No authorization to access service group" | IAM App del binding OData non nel catalog | aggiungi IAM App `..._EXT` del binding a `ZDOC_CONSERV_BC` + Publish |
+| 403 "No authorization to access service group" | IAM App del binding OData non nel catalog | aggiungi IAM App `..._EXT` del binding a `ZDOC_CONFIG_BC` + Publish |
 | 403 dati ma UI ok | restrizioni role o servizio non in IAM App | IAM App `ZDOC_CONFIG_UI_EXT` tab Services → aggiungi binding |
 | 403 UCON su URL diretto BSP | normale su BTP ABAP | apri via Launchpad, non da URL ICF |

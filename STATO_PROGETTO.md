@@ -23,8 +23,21 @@ Stato ricostruzione:
 - [x] Repo GitHub nuovo: `https://github.com/chririga7/BTP003-BAS` (pubblico, branch `main`)
 - [x] Destination deploy/proxy aggiornata: `BAS_DEPLOY_L01` (→ host c5addbf6)
 - [x] Re-deploy BSP `ZDOC_CONFIG` sul nuovo sistema (29/05/2026) — Deployment Successful
-- [ ] Ricostruzione IAM App / Business Catalog / Role / Page / Communication Scenario
-- [ ] Verifica tile Launchpad + dati reali
+- [x] Ricostruzione IAM App / Business Catalog / Role / Space / Page (dedicati `ZDOC_CONFIG_*`)
+- [x] **Tile Launchpad funzionante + dati reali** (29/05/2026) — app live, tema completo, 3 tab
+
+### Oggetti Launchpad ricreati (dedicati, space separato)
+| Oggetto | Nome |
+|---|---|
+| IAM App (External) | `ZDOC_CONFIG_UI_EXT` (LADI `ZDOC_CONFIG_UI5R`, servizio `ZSB_DOC_CONFIG_TENANT_API`) |
+| Business Catalog | `ZDOC_CONFIG_BC` |
+| Business Role | `ZDOC_CONFIG_BR` |
+| Launchpad Space | `ZDOC_CONFIG_SPACE` |
+| Launchpad Page | `ZDOC_CONFIG_PAGE` |
+
+### TODO residui (non bloccanti)
+- [ ] 🔒 Revocare il token GitHub `ghp_…234CTR` (era esposto nel vecchio repo dashboard-config)
+- [ ] Rinominare cartella locale `Dashboard_configurazione` → `BTP003-BAS` (cosmetico)
 
 ---
 
