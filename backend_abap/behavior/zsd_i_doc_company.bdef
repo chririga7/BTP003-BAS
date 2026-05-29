@@ -1,0 +1,32 @@
+managed implementation in class zbp_sd_i_doc_company unique;
+strict ( 2 );
+
+define behavior for ZSD_I_DOC_COMPANY alias Company
+persistent table zedoc_company
+lock master
+authorization master ( global )
+etag master ChangedAt
+{
+  create;
+  update;
+  delete;
+
+  field ( mandatory : create, readonly : update ) CompanyCode;
+  field ( mandatory : create ) CompanyName;
+  field ( readonly ) StatusCriticality, CreatedBy, CreatedAt, ChangedBy, ChangedAt;
+
+  determination setSysData on save { create; update; }
+
+  mapping for zedoc_company
+  {
+    CompanyCode = company_code;
+    CompanyName = company_name;
+    TaxCode     = tax_code;
+    Country     = country;
+    IsActive    = is_active;
+    CreatedBy   = created_by;
+    CreatedAt   = created_at;
+    ChangedBy   = changed_by;
+    ChangedAt   = changed_at;
+  }
+}

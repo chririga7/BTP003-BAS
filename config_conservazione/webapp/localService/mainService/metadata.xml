@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="4.0" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+  <edmx:DataServices>
+    <Schema Namespace="com.sap.gateway.srvd_a2x.zsd_doc_config_tenant.v0001" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+      <!-- Entity: Company -->
+      <EntityType Name="CompanyType">
+        <Key>
+          <PropertyRef Name="CompanyCode"/>
+        </Key>
+        <Property Name="CompanyCode" Type="Edm.String" MaxLength="4" Nullable="false"/>
+        <Property Name="CompanyName" Type="Edm.String" MaxLength="60"/>
+        <Property Name="TaxCode" Type="Edm.String" MaxLength="20"/>
+        <Property Name="Country" Type="Edm.String" MaxLength="3"/>
+        <Property Name="IsActive" Type="Edm.String" MaxLength="1"/>
+        <Property Name="StatusCriticality" Type="Edm.Int32"/>
+        <Property Name="CreatedBy" Type="Edm.String" MaxLength="12"/>
+        <Property Name="CreatedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="ChangedBy" Type="Edm.String" MaxLength="12"/>
+        <Property Name="ChangedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+      </EntityType>
+
+      <!-- Entity: Config -->
+      <EntityType Name="ConfigType">
+        <Key>
+          <PropertyRef Name="ConfigKey"/>
+        </Key>
+        <Property Name="ConfigKey" Type="Edm.String" MaxLength="30" Nullable="false"/>
+        <Property Name="ConfigValue" Type="Edm.String" MaxLength="255"/>
+        <Property Name="Description" Type="Edm.String" MaxLength="255"/>
+        <Property Name="IsActive" Type="Edm.String" MaxLength="1"/>
+        <Property Name="StatusCriticality" Type="Edm.Int32"/>
+        <Property Name="CreatedBy" Type="Edm.String" MaxLength="12"/>
+        <Property Name="CreatedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="ChangedBy" Type="Edm.String" MaxLength="12"/>
+        <Property Name="ChangedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+      </EntityType>
+
+      <!-- Entity: DocType -->
+      <EntityType Name="DocTypeType">
+        <Key>
+          <PropertyRef Name="DocType"/>
+          <PropertyRef Name="DocDirection"/>
+        </Key>
+        <Property Name="DocType" Type="Edm.String" MaxLength="10" Nullable="false"/>
+        <Property Name="DocDirection" Type="Edm.String" MaxLength="1" Nullable="false"/>
+        <Property Name="ArchivaDocClass" Type="Edm.String" MaxLength="30"/>
+        <Property Name="RetentionYears" Type="Edm.Int32"/>
+        <Property Name="AdapterId" Type="Edm.String" MaxLength="30"/>
+        <Property Name="IsActive" Type="Edm.String" MaxLength="1"/>
+        <Property Name="StatusCriticality" Type="Edm.Int32"/>
+        <Property Name="WaitYellowDays" Type="Edm.Int32"/>
+        <Property Name="WaitRedDays" Type="Edm.Int32"/>
+        <Property Name="MaxRetry" Type="Edm.Int32"/>
+        <Property Name="RetryIntvHours" Type="Edm.Int32"/>
+        <Property Name="FileExcludeExt" Type="Edm.String" MaxLength="255"/>
+        <Property Name="SipNamingPat" Type="Edm.String" MaxLength="255"/>
+        <Property Name="AutoRetry" Type="Edm.String" MaxLength="1"/>
+        <Property Name="CreatedBy" Type="Edm.String" MaxLength="12"/>
+        <Property Name="CreatedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+        <Property Name="ChangedBy" Type="Edm.String" MaxLength="12"/>
+        <Property Name="ChangedAt" Type="Edm.DateTimeOffset" Precision="7"/>
+      </EntityType>
+
+      <EntityContainer Name="EntityContainer">
+        <EntitySet Name="Company" EntityType="com.sap.gateway.srvd_a2x.zsd_doc_config_tenant.v0001.CompanyType"/>
+        <EntitySet Name="Config" EntityType="com.sap.gateway.srvd_a2x.zsd_doc_config_tenant.v0001.ConfigType"/>
+        <EntitySet Name="DocType" EntityType="com.sap.gateway.srvd_a2x.zsd_doc_config_tenant.v0001.DocTypeType"/>
+      </EntityContainer>
+
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>

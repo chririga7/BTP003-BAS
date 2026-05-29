@@ -1,0 +1,7 @@
+/* Configurazione Conservazione - Custom Styles */
+
+/* Mascheramento campo ApiKey nell'Object Page */
+.sapUiFormElement[data-sap-ui-custom-settings*="ApiKey"] .sapMInputBaseInner {
+    -webkit-text-security: disc;
+    text-security: disc;
+}

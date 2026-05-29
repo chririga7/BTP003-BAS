@@ -1,0 +1,39 @@
+managed implementation in class zbp_sd_i_doc_doctype unique;
+strict ( 2 );
+
+define behavior for ZSD_I_DOC_DOCTYPE alias DocType
+persistent table zedoc_doctype
+lock master
+authorization master ( global )
+etag master ChangedAt
+{
+  create;
+  update;
+  delete;
+
+  field ( mandatory : create, readonly : update ) DocType, DocDirection;
+  field ( readonly ) StatusCriticality, CreatedBy, CreatedAt, ChangedBy, ChangedAt;
+
+  determination setSysData on save { create; update; }
+
+  mapping for zedoc_doctype
+  {
+    DocType         = doc_type;
+    DocDirection    = doc_direction;
+    ArchivaDocClass = archiva_doc_class;
+    RetentionYears  = retention_years;
+    AdapterId       = adapter_id;
+    IsActive        = is_active;
+    WaitYellowDays  = wait_yellow_days;
+    WaitRedDays     = wait_red_days;
+    MaxRetry        = max_retry;
+    RetryIntvHours  = retry_intv_hours;
+    FileExcludeExt  = file_exclude_ext;
+    SipNamingPat    = sip_naming_pat;
+    AutoRetry       = auto_retry;
+    CreatedBy       = created_by;
+    CreatedAt       = created_at;
+    ChangedBy       = changed_by;
+    ChangedAt       = changed_at;
+  }
+}

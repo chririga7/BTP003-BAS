@@ -1,0 +1,9 @@
+projection;
+strict ( 2 );
+
+define behavior for ZSD_C_DOC_DOCTYPE alias DocType
+{
+  use create;
+  use update;
+  use delete;
+}

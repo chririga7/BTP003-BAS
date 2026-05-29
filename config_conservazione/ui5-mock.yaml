@@ -1,0 +1,27 @@
+specVersion: "3.0"
+metadata:
+  name: zdocconfigv1
+type: application
+framework:
+  name: SAPUI5
+  version: "1.120.0"
+  libraries:
+    - name: sap.m
+    - name: sap.ui.core
+    - name: sap.fe.core
+    - name: sap.fe.templates
+    - name: sap.ui.fl
+server:
+  customMiddleware:
+    - name: sap-fe-mockserver
+      afterMiddleware: compression
+      configuration:
+        services:
+          - urlPath: /sap/opu/odata4/sap/zsb_doc_config_tenant_api/srvd_a2x/sap/zsd_doc_config_tenant/0001/
+            metadataPath: ./webapp/localService/mainService/metadata.xml
+            mockdataPath: ./webapp/localService/mainService/
+            generateMockData: false
+            watch: true
+        annotations:
+          - urlPath: /annotations/annotation.xml
+            localPath: ./webapp/annotations/annotation.xml

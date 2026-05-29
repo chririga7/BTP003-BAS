@@ -1,0 +1,7 @@
+[
+  {"ConfigKey": "PROVIDER_URL", "ConfigValue": "https://api.infocert.it/conservazione/v2", "Description": "URL endpoint provider conservazione", "IsActive": "X", "StatusCriticality": 3, "CreatedBy": "CB9980000000", "CreatedAt": "2026-04-01T10:00:00Z", "ChangedBy": "CB9980000000", "ChangedAt": "2026-04-01T10:00:00Z"},
+  {"ConfigKey": "PROVIDER_NAME", "ConfigValue": "INFOCERT", "Description": "Nome provider conservazione", "IsActive": "X", "StatusCriticality": 3, "CreatedBy": "CB9980000000", "CreatedAt": "2026-04-01T10:00:00Z", "ChangedBy": "CB9980000000", "ChangedAt": "2026-04-01T10:00:00Z"},
+  {"ConfigKey": "RETENTION_DEFAULT", "ConfigValue": "10", "Description": "Anni conservazione default", "IsActive": "X", "StatusCriticality": 3, "CreatedBy": "CB9980000000", "CreatedAt": "2026-04-01T10:00:00Z", "ChangedBy": "CB9980000000", "ChangedAt": "2026-04-01T10:00:00Z"},
+  {"ConfigKey": "NOTIFY_EMAIL", "ConfigValue": "conservazione@archiva.it", "Description": "Email notifiche errori", "IsActive": "X", "StatusCriticality": 3, "CreatedBy": "CB9980000000", "CreatedAt": "2026-04-01T10:00:00Z", "ChangedBy": "CB9980000000", "ChangedAt": "2026-04-01T10:00:00Z"},
+  {"ConfigKey": "DEBUG_MODE", "ConfigValue": "false", "Description": "Modalità debug", "IsActive": "", "StatusCriticality": 1, "CreatedBy": "CB9980000000", "CreatedAt": "2026-04-01T10:00:00Z", "ChangedBy": "CB9980000000", "ChangedAt": "2026-04-01T10:00:00Z"}
+]

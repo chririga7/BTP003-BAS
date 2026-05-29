@@ -1,0 +1,7 @@
+[
+  {"CompanyCode": "IT10", "CompanyName": "Azienda italiana", "TaxCode": "IT123456789", "Country": "IT", "IsActive": "X", "StatusCriticality": 3, "CreatedBy": "CB9980000000", "CreatedAt": "2026-04-06T11:07:50Z", "ChangedBy": "CB9980000000", "ChangedAt": "2026-04-06T11:07:50Z"},
+  {"CompanyCode": "IT30", "CompanyName": "Azienda italiana", "TaxCode": "IT987654321", "Country": "IT", "IsActive": "X", "StatusCriticality": 3, "CreatedBy": "CB9980000000", "CreatedAt": "2026-04-06T11:07:50Z", "ChangedBy": "CB9980000000", "ChangedAt": "2026-04-06T11:07:50Z"},
+  {"CompanyCode": "IT45", "CompanyName": "COMPANY DI TEST", "TaxCode": "IT1234530201", "Country": "IT", "IsActive": "X", "StatusCriticality": 3, "CreatedBy": "CB9980000000", "CreatedAt": "2026-04-06T11:07:50Z", "ChangedBy": "CB9980000000", "ChangedAt": "2026-04-06T11:07:50Z"},
+  {"CompanyCode": "DE10", "CompanyName": "Germany Company", "TaxCode": "DE123456789", "Country": "DE", "IsActive": "X", "StatusCriticality": 3, "CreatedBy": "CB9980000000", "CreatedAt": "2026-04-06T11:07:50Z", "ChangedBy": "CB9980000000", "ChangedAt": "2026-04-06T11:07:50Z"},
+  {"CompanyCode": "DE20", "CompanyName": "Germany Company", "TaxCode": "DE987654321", "Country": "DE", "IsActive": "X", "StatusCriticality": 3, "CreatedBy": "CB9980000000", "CreatedAt": "2026-04-06T11:07:50Z", "ChangedBy": "CB9980000000", "ChangedAt": "2026-04-06T11:07:50Z"}
+]

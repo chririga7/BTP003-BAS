@@ -1,0 +1,22 @@
+specVersion: "3.0"
+metadata:
+  name: zdocconfigv1
+type: application
+framework:
+  name: SAPUI5
+  version: "1.120.0"
+  libraries:
+    - name: sap.m
+    - name: sap.ui.core
+    - name: sap.fe.templates
+    - name: sap.ui.fl
+server:
+  customMiddleware:
+    - name: fiori-tools-proxy
+      afterMiddleware: compression
+      configuration:
+        ignoreCertError: false
+        backend:
+          - path: /sap
+            url: https://c5addbf6-3a6f-464c-afb9-bde97029ca8b.abap.eu10.hana.ondemand.com
+            destination: ABAP_Employee_RAP

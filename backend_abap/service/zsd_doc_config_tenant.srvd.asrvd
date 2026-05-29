@@ -1,0 +1,6 @@
+@EndUserText.label: 'Doc Config Tenant - Service Definition'
+define service ZSD_DOC_CONFIG_TENANT {
+  expose ZSD_C_DOC_COMPANY as Company;
+  expose ZSD_C_DOC_CONFIG  as Config;
+  expose ZSD_C_DOC_DOCTYPE as DocType;
+}

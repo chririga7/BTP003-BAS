@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(git -C $p init)",
+      "PowerShell(git -C $p symbolic-ref HEAD refs/heads/main)",
+      "PowerShell(git -C $p remote add origin https://github.com/chririga7/BTP003-BAS.git)",
+      "PowerShell(git -C $p ls-remote --heads origin 2>&1)",
+      "PowerShell($p=\"C:\\\\Users\\\\christian.riga\\\\OneDrive - Archiva Group\\\\Desktop\\\\Claude\\\\ABAP_CLOUD\\\\Dashboard_configurazione\")",
+      "PowerShell($env:GIT_TERMINAL_PROMPT=0; gh auth status 2>&1; \"---\"; \\(Get-Command gh -ErrorAction SilentlyContinue\\).Source)"
+    ]
+  }
+}

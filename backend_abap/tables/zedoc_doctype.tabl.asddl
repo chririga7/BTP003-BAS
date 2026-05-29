@@ -1,0 +1,27 @@
+@EndUserText.label : 'Doc Conservazione - Tipi Documento (DocType)'
+@AbapCatalog.enhancement.category : #NOT_EXTENSIBLE
+@AbapCatalog.tableCategory : #TRANSPARENT
+@AbapCatalog.deliveryClass : #A
+@AbapCatalog.dataMaintenance : #RESTRICTED
+define table zedoc_doctype {
+
+  key client         : abap.clnt not null;
+  key doc_type       : abap.char(10) not null;
+  key doc_direction  : abap.char(1) not null;
+  archiva_doc_class  : abap.char(30);
+  retention_years    : abap.int4;
+  adapter_id         : abap.char(30);
+  is_active          : abap.char(1);
+  wait_yellow_days   : abap.int4;
+  wait_red_days      : abap.int4;
+  max_retry          : abap.int4;
+  retry_intv_hours   : abap.int4;
+  file_exclude_ext   : abap.char(255);
+  sip_naming_pat     : abap.char(255);
+  auto_retry         : abap.char(1);
+  created_by         : abp_creation_user;
+  created_at         : abp_creation_tstmpl;
+  changed_by         : abp_lastchange_user;
+  changed_at         : abp_lastchange_tstmpl;
+
+}

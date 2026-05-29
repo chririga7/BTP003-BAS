@@ -1,0 +1,18 @@
+# Node / UI5
+node_modules/
+dist/
+.env
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+*.swp
+
+# Python (genera_guida.py)
+__pycache__/
+*.pyc

@@ -1,0 +1,496 @@
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+  <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+    <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+    <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="Core"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="/sap/opu/odata4/sap/zsb_doc_config_tenant_api/srvd_a2x/sap/zsd_doc_config_tenant/0001/$metadata">
+    <edmx:Include Namespace="com.sap.gateway.srvd_a2x.zsd_doc_config_tenant.v0001" Alias="SAP"/>
+  </edmx:Reference>
+  <edmx:DataServices>
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="local.annotation">
+
+      <!-- ============================================================ -->
+      <!-- COMPANY — Anagrafica Società                                 -->
+      <!-- ============================================================ -->
+
+      <Annotations Target="com.sap.gateway.srvd_a2x.zsd_doc_config_tenant.v0001.CompanyType">
+
+        <!-- Tab label per multi-tab -->
+        <Annotation Term="UI.SelectionVariant" Qualifier="Company">
+          <Record Type="UI.SelectionVariantType">
+            <PropertyValue Property="Text" String="Società"/>
+          </Record>
+        </Annotation>
+
+        <Annotation Term="UI.HeaderInfo">
+          <Record Type="UI.HeaderInfoType">
+            <PropertyValue Property="TypeName" String="Società"/>
+            <PropertyValue Property="TypeNamePlural" String="Società"/>
+            <PropertyValue Property="Title">
+              <Record Type="UI.DataField">
+                <PropertyValue Property="Value" Path="CompanyCode"/>
+              </Record>
+            </PropertyValue>
+            <PropertyValue Property="Description">
+              <Record Type="UI.DataField">
+                <PropertyValue Property="Value" Path="CompanyName"/>
+              </Record>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+
+        <Annotation Term="UI.SelectionFields">
+          <Collection>
+            <PropertyPath>CompanyCode</PropertyPath>
+            <PropertyPath>Country</PropertyPath>
+            <PropertyPath>IsActive</PropertyPath>
+          </Collection>
+        </Annotation>
+
+        <Annotation Term="UI.LineItem">
+          <Collection>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="CompanyCode"/>
+              <PropertyValue Property="Label" String="Codice Società"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="CompanyName"/>
+              <PropertyValue Property="Label" String="Ragione Sociale"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="TaxCode"/>
+              <PropertyValue Property="Label" String="Codice Fiscale / P.IVA"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="Country"/>
+              <PropertyValue Property="Label" String="Paese"/>
+            </Record>
+            <Record Type="UI.DataFieldForAnnotation">
+              <PropertyValue Property="Target" AnnotationPath="@UI.DataPoint#CompanyActive"/>
+              <PropertyValue Property="Label" String="Attiva"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="ChangedAt"/>
+              <PropertyValue Property="Label" String="Ultima Modifica"/>
+            </Record>
+          </Collection>
+        </Annotation>
+
+        <Annotation Term="UI.DataPoint" Qualifier="CompanyActive">
+          <Record Type="UI.DataPointType">
+            <PropertyValue Property="Value" Path="IsActive"/>
+            <PropertyValue Property="Title" String="Attiva"/>
+            <PropertyValue Property="Criticality" Path="StatusCriticality"/>
+          </Record>
+        </Annotation>
+
+        <Annotation Term="UI.Facets">
+          <Collection>
+            <Record Type="UI.ReferenceFacet">
+              <PropertyValue Property="ID" String="DatiSocieta"/>
+              <PropertyValue Property="Label" String="Dati Società"/>
+              <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#DatiSocieta"/>
+            </Record>
+            <Record Type="UI.ReferenceFacet">
+              <PropertyValue Property="ID" String="Audit"/>
+              <PropertyValue Property="Label" String="Audit"/>
+              <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#CompanyAudit"/>
+            </Record>
+          </Collection>
+        </Annotation>
+
+        <Annotation Term="UI.FieldGroup" Qualifier="DatiSocieta">
+          <Record Type="UI.FieldGroupType">
+            <PropertyValue Property="Data">
+              <Collection>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="CompanyCode"/>
+                  <PropertyValue Property="Label" String="Codice Società"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="CompanyName"/>
+                  <PropertyValue Property="Label" String="Ragione Sociale"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="TaxCode"/>
+                  <PropertyValue Property="Label" String="Codice Fiscale / P.IVA"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="Country"/>
+                  <PropertyValue Property="Label" String="Paese"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="IsActive"/>
+                  <PropertyValue Property="Label" String="Attiva"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+
+        <Annotation Term="UI.FieldGroup" Qualifier="CompanyAudit">
+          <Record Type="UI.FieldGroupType">
+            <PropertyValue Property="Data">
+              <Collection>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="CreatedBy"/>
+                  <PropertyValue Property="Label" String="Creato Da"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="CreatedAt"/>
+                  <PropertyValue Property="Label" String="Creato Il"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="ChangedBy"/>
+                  <PropertyValue Property="Label" String="Modificato Da"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="ChangedAt"/>
+                  <PropertyValue Property="Label" String="Modificato Il"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+
+      </Annotations>
+
+      <!-- ============================================================ -->
+      <!-- CONFIG — Parametri Configurazione Tenant                     -->
+      <!-- ============================================================ -->
+
+      <Annotations Target="com.sap.gateway.srvd_a2x.zsd_doc_config_tenant.v0001.ConfigType">
+
+        <Annotation Term="UI.SelectionVariant" Qualifier="Config">
+          <Record Type="UI.SelectionVariantType">
+            <PropertyValue Property="Text" String="Parametri"/>
+          </Record>
+        </Annotation>
+
+        <Annotation Term="UI.HeaderInfo">
+          <Record Type="UI.HeaderInfoType">
+            <PropertyValue Property="TypeName" String="Parametro"/>
+            <PropertyValue Property="TypeNamePlural" String="Parametri"/>
+            <PropertyValue Property="Title">
+              <Record Type="UI.DataField">
+                <PropertyValue Property="Value" Path="ConfigKey"/>
+              </Record>
+            </PropertyValue>
+            <PropertyValue Property="Description">
+              <Record Type="UI.DataField">
+                <PropertyValue Property="Value" Path="Description"/>
+              </Record>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+
+        <Annotation Term="UI.SelectionFields">
+          <Collection>
+            <PropertyPath>ConfigKey</PropertyPath>
+            <PropertyPath>IsActive</PropertyPath>
+          </Collection>
+        </Annotation>
+
+        <Annotation Term="UI.LineItem">
+          <Collection>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="ConfigKey"/>
+              <PropertyValue Property="Label" String="Chiave"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="ConfigValue"/>
+              <PropertyValue Property="Label" String="Valore"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="Description"/>
+              <PropertyValue Property="Label" String="Descrizione"/>
+            </Record>
+            <Record Type="UI.DataFieldForAnnotation">
+              <PropertyValue Property="Target" AnnotationPath="@UI.DataPoint#ConfigActive"/>
+              <PropertyValue Property="Label" String="Attivo"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="ChangedAt"/>
+              <PropertyValue Property="Label" String="Ultima Modifica"/>
+            </Record>
+          </Collection>
+        </Annotation>
+
+        <Annotation Term="UI.DataPoint" Qualifier="ConfigActive">
+          <Record Type="UI.DataPointType">
+            <PropertyValue Property="Value" Path="IsActive"/>
+            <PropertyValue Property="Title" String="Attivo"/>
+            <PropertyValue Property="Criticality" Path="StatusCriticality"/>
+          </Record>
+        </Annotation>
+
+        <Annotation Term="UI.Facets">
+          <Collection>
+            <Record Type="UI.ReferenceFacet">
+              <PropertyValue Property="ID" String="DatiConfig"/>
+              <PropertyValue Property="Label" String="Dettaglio Parametro"/>
+              <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#DatiConfig"/>
+            </Record>
+            <Record Type="UI.ReferenceFacet">
+              <PropertyValue Property="ID" String="AuditConfig"/>
+              <PropertyValue Property="Label" String="Audit"/>
+              <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#ConfigAudit"/>
+            </Record>
+          </Collection>
+        </Annotation>
+
+        <Annotation Term="UI.FieldGroup" Qualifier="DatiConfig">
+          <Record Type="UI.FieldGroupType">
+            <PropertyValue Property="Data">
+              <Collection>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="ConfigKey"/>
+                  <PropertyValue Property="Label" String="Chiave"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="ConfigValue"/>
+                  <PropertyValue Property="Label" String="Valore"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="Description"/>
+                  <PropertyValue Property="Label" String="Descrizione"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="IsActive"/>
+                  <PropertyValue Property="Label" String="Attivo"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+
+        <Annotation Term="UI.FieldGroup" Qualifier="ConfigAudit">
+          <Record Type="UI.FieldGroupType">
+            <PropertyValue Property="Data">
+              <Collection>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="CreatedBy"/>
+                  <PropertyValue Property="Label" String="Creato Da"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="CreatedAt"/>
+                  <PropertyValue Property="Label" String="Creato Il"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="ChangedBy"/>
+                  <PropertyValue Property="Label" String="Modificato Da"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="ChangedAt"/>
+                  <PropertyValue Property="Label" String="Modificato Il"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+
+      </Annotations>
+
+      <!-- ============================================================ -->
+      <!-- DOCTYPE — Configurazione Tipi Documento                      -->
+      <!-- ============================================================ -->
+
+      <Annotations Target="com.sap.gateway.srvd_a2x.zsd_doc_config_tenant.v0001.DocTypeType">
+
+        <Annotation Term="UI.SelectionVariant" Qualifier="DocType">
+          <Record Type="UI.SelectionVariantType">
+            <PropertyValue Property="Text" String="Tipi Documento"/>
+          </Record>
+        </Annotation>
+
+        <Annotation Term="UI.HeaderInfo">
+          <Record Type="UI.HeaderInfoType">
+            <PropertyValue Property="TypeName" String="Tipo Documento"/>
+            <PropertyValue Property="TypeNamePlural" String="Tipi Documento"/>
+            <PropertyValue Property="Title">
+              <Record Type="UI.DataField">
+                <PropertyValue Property="Value" Path="DocType"/>
+              </Record>
+            </PropertyValue>
+            <PropertyValue Property="Description">
+              <Record Type="UI.DataField">
+                <PropertyValue Property="Value" Path="DocDirection"/>
+              </Record>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+
+        <Annotation Term="UI.SelectionFields">
+          <Collection>
+            <PropertyPath>DocType</PropertyPath>
+            <PropertyPath>DocDirection</PropertyPath>
+            <PropertyPath>IsActive</PropertyPath>
+          </Collection>
+        </Annotation>
+
+        <Annotation Term="UI.LineItem">
+          <Collection>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="DocType"/>
+              <PropertyValue Property="Label" String="Tipo Documento"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="DocDirection"/>
+              <PropertyValue Property="Label" String="Direzione"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="ArchivaDocClass"/>
+              <PropertyValue Property="Label" String="Classe Archiva"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="RetentionYears"/>
+              <PropertyValue Property="Label" String="Anni Conservazione"/>
+            </Record>
+            <Record Type="UI.DataFieldForAnnotation">
+              <PropertyValue Property="Target" AnnotationPath="@UI.DataPoint#DocTypeActive"/>
+              <PropertyValue Property="Label" String="Attivo"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="MaxRetry"/>
+              <PropertyValue Property="Label" String="Tentativi Max"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Value" Path="ChangedAt"/>
+              <PropertyValue Property="Label" String="Ultima Modifica"/>
+            </Record>
+          </Collection>
+        </Annotation>
+
+        <Annotation Term="UI.DataPoint" Qualifier="DocTypeActive">
+          <Record Type="UI.DataPointType">
+            <PropertyValue Property="Value" Path="IsActive"/>
+            <PropertyValue Property="Title" String="Attivo"/>
+            <PropertyValue Property="Criticality" Path="StatusCriticality"/>
+          </Record>
+        </Annotation>
+
+        <Annotation Term="UI.Facets">
+          <Collection>
+            <Record Type="UI.ReferenceFacet">
+              <PropertyValue Property="ID" String="DatiDocType"/>
+              <PropertyValue Property="Label" String="Configurazione"/>
+              <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#DatiDocType"/>
+            </Record>
+            <Record Type="UI.ReferenceFacet">
+              <PropertyValue Property="ID" String="ParamDocType"/>
+              <PropertyValue Property="Label" String="Parametri Avanzati"/>
+              <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#ParamDocType"/>
+            </Record>
+            <Record Type="UI.ReferenceFacet">
+              <PropertyValue Property="ID" String="AuditDocType"/>
+              <PropertyValue Property="Label" String="Audit"/>
+              <PropertyValue Property="Target" AnnotationPath="@UI.FieldGroup#DocTypeAudit"/>
+            </Record>
+          </Collection>
+        </Annotation>
+
+        <Annotation Term="UI.FieldGroup" Qualifier="DatiDocType">
+          <Record Type="UI.FieldGroupType">
+            <PropertyValue Property="Data">
+              <Collection>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="DocType"/>
+                  <PropertyValue Property="Label" String="Tipo Documento"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="DocDirection"/>
+                  <PropertyValue Property="Label" String="Direzione"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="ArchivaDocClass"/>
+                  <PropertyValue Property="Label" String="Classe Documento Archiva"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="AdapterId"/>
+                  <PropertyValue Property="Label" String="Adapter ID"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="RetentionYears"/>
+                  <PropertyValue Property="Label" String="Anni Conservazione"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="IsActive"/>
+                  <PropertyValue Property="Label" String="Attivo"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+
+        <Annotation Term="UI.FieldGroup" Qualifier="ParamDocType">
+          <Record Type="UI.FieldGroupType">
+            <PropertyValue Property="Data">
+              <Collection>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="MaxRetry"/>
+                  <PropertyValue Property="Label" String="Tentativi Max"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="RetryIntvHours"/>
+                  <PropertyValue Property="Label" String="Intervallo Retry (ore)"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="AutoRetry"/>
+                  <PropertyValue Property="Label" String="Auto Retry"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="WaitYellowDays"/>
+                  <PropertyValue Property="Label" String="Giorni Attesa (giallo)"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="WaitRedDays"/>
+                  <PropertyValue Property="Label" String="Giorni Attesa (rosso)"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="FileExcludeExt"/>
+                  <PropertyValue Property="Label" String="Estensioni Escluse"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="SipNamingPat"/>
+                  <PropertyValue Property="Label" String="Pattern Naming SIP"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+
+        <Annotation Term="UI.FieldGroup" Qualifier="DocTypeAudit">
+          <Record Type="UI.FieldGroupType">
+            <PropertyValue Property="Data">
+              <Collection>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="CreatedBy"/>
+                  <PropertyValue Property="Label" String="Creato Da"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="CreatedAt"/>
+                  <PropertyValue Property="Label" String="Creato Il"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="ChangedBy"/>
+                  <PropertyValue Property="Label" String="Modificato Da"/>
+                </Record>
+                <Record Type="UI.DataField">
+                  <PropertyValue Property="Value" Path="ChangedAt"/>
+                  <PropertyValue Property="Label" String="Modificato Il"/>
+                </Record>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+
+      </Annotations>
+
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>

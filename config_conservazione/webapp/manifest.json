@@ -1,0 +1,222 @@
+{
+  "_version": "1.59.0",
+  "sap.app": {
+    "id": "z.doc.config.zdocconfigv1",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.2"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:list-report-object-page",
+      "version": "1.0.0"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/sap/opu/odata4/sap/zsb_doc_config_tenant_api/srvd_a2x/sap/zsd_doc_config_tenant/0001/",
+        "type": "OData",
+        "settings": {
+          "annotations": [
+            "annotation"
+          ],
+          "localUri": "localService/mainService/metadata.xml",
+          "odataVersion": "4.0"
+        }
+      },
+      "annotation": {
+        "type": "ODataAnnotation",
+        "uri": "annotations/annotation.xml",
+        "settings": {
+          "localUri": "annotations/annotation.xml"
+        }
+      }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "zdocconfig-display": {
+          "semanticObject": "zdocconfig",
+          "action": "display",
+          "title": "{{appTitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "sap-icon://settings",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.120.0",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.fe.core": {},
+        "sap.fe.templates": {},
+        "sap.ui.fl": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "z.doc.config.zdocconfigv1.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "synchronizationMode": "None",
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      }
+    },
+    "routing": {
+      "config": {},
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "MainList",
+          "target": "MainList"
+        },
+        {
+          "pattern": "Company({key}):?query:",
+          "name": "CompanyObjectPage",
+          "target": "CompanyObjectPage"
+        },
+        {
+          "pattern": "Config({key}):?query:",
+          "name": "ConfigObjectPage",
+          "target": "ConfigObjectPage"
+        },
+        {
+          "pattern": "DocType({key}):?query:",
+          "name": "DocTypeObjectPage",
+          "target": "DocTypeObjectPage"
+        }
+      ],
+      "targets": {
+        "MainList": {
+          "type": "Component",
+          "id": "MainList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "contextPath": "/Company",
+              "variantManagement": "Page",
+              "navigation": {
+                "Company": {
+                  "detail": {
+                    "route": "CompanyObjectPage"
+                  }
+                },
+                "Config": {
+                  "detail": {
+                    "route": "ConfigObjectPage"
+                  }
+                },
+                "DocType": {
+                  "detail": {
+                    "route": "DocTypeObjectPage"
+                  }
+                }
+              },
+              "views": {
+                "paths": [
+                  {
+                    "key": "tabCompany",
+                    "contextPath": "/Company",
+                    "annotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#Company"
+                  },
+                  {
+                    "key": "tabConfig",
+                    "contextPath": "/Config",
+                    "annotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#Config"
+                  },
+                  {
+                    "key": "tabDocType",
+                    "contextPath": "/DocType",
+                    "annotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#DocType"
+                  }
+                ]
+              },
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "ResponsiveTable",
+                    "selectionMode": "Multi"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "CompanyObjectPage": {
+          "type": "Component",
+          "id": "CompanyObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "contextPath": "/Company",
+              "editableHeaderContent": false
+            }
+          }
+        },
+        "ConfigObjectPage": {
+          "type": "Component",
+          "id": "ConfigObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "contextPath": "/Config",
+              "editableHeaderContent": false
+            }
+          }
+        },
+        "DocTypeObjectPage": {
+          "type": "Component",
+          "id": "DocTypeObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "contextPath": "/DocType",
+              "editableHeaderContent": false
+            }
+          }
+        }
+      }
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [
+      "ZDOC_CONFIG"
+    ],
+    "archeType": "transactional"
+  }
+}

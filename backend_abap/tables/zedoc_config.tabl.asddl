@@ -1,0 +1,18 @@
+@EndUserText.label : 'Doc Conservazione - Parametri (Config)'
+@AbapCatalog.enhancement.category : #NOT_EXTENSIBLE
+@AbapCatalog.tableCategory : #TRANSPARENT
+@AbapCatalog.deliveryClass : #A
+@AbapCatalog.dataMaintenance : #RESTRICTED
+define table zedoc_config {
+
+  key client     : abap.clnt not null;
+  key config_key : abap.char(30) not null;
+  config_value   : abap.char(255);
+  description    : abap.char(255);
+  is_active      : abap.char(1);
+  created_by     : abp_creation_user;
+  created_at     : abp_creation_tstmpl;
+  changed_by     : abp_lastchange_user;
+  changed_at     : abp_lastchange_tstmpl;
+
+}

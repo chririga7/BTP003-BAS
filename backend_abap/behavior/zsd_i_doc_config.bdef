@@ -1,0 +1,30 @@
+managed implementation in class zbp_sd_i_doc_config unique;
+strict ( 2 );
+
+define behavior for ZSD_I_DOC_CONFIG alias Config
+persistent table zedoc_config
+lock master
+authorization master ( global )
+etag master ChangedAt
+{
+  create;
+  update;
+  delete;
+
+  field ( mandatory : create, readonly : update ) ConfigKey;
+  field ( readonly ) StatusCriticality, CreatedBy, CreatedAt, ChangedBy, ChangedAt;
+
+  determination setSysData on save { create; update; }
+
+  mapping for zedoc_config
+  {
+    ConfigKey   = config_key;
+    ConfigValue = config_value;
+    Description = description;
+    IsActive    = is_active;
+    CreatedBy   = created_by;
+    CreatedAt   = created_at;
+    ChangedBy   = changed_by;
+    ChangedAt   = changed_at;
+  }
+}
