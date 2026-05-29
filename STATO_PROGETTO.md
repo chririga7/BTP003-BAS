@@ -17,12 +17,14 @@ Stato ricostruzione:
 - [x] Guida creazione in ADT: `backend_abap/README_SETUP.md`
 - [x] Host aggiornato in `ui5.yaml` + `ui5-deploy.yaml`
 - [x] Fix mismatch binding + rinomina servizio (collisione con vecchio in `ZEDOC_MONITOR`): service def `ZSD_DOC_CONFIG_TENANT`, binding `ZSB_DOC_CONFIG_TENANT_API`. Aggiornati manifest, annotation.xml, metadata.xml, ui5-mock.yaml
-- [ ] Oggetti backend creati e attivati in ADT sul nuovo sistema
-- [ ] Service Binding `ZSB_DOC_CONFIG_TENANT_API` (V4 Web API) pubblicato
-- [ ] Re-deploy BSP `ZDOC_CONFIG` sul nuovo sistema
+- [x] Oggetti backend creati e attivati in ADT sul nuovo sistema (package `ZEDOC_CONFIG`)
+- [x] Service Binding `ZSB_DOC_CONFIG_TENANT_API` (V4 Web API) pubblicato
+- [x] Demo data inserita (`ZCL_EDOC_DEMO_DATA`: 5 Company, 5 Config, 4 DocType)
+- [x] Repo GitHub nuovo: `https://github.com/chririga7/BTP003-BAS` (pubblico, branch `main`)
+- [x] Destination deploy/proxy aggiornata: `BAS_DEPLOY_L01` (→ host c5addbf6)
+- [x] Re-deploy BSP `ZDOC_CONFIG` sul nuovo sistema (29/05/2026) — Deployment Successful
 - [ ] Ricostruzione IAM App / Business Catalog / Role / Page / Communication Scenario
 - [ ] Verifica tile Launchpad + dati reali
-- [ ] Verificare/ricreare destination BAS `ABAP_Employee_RAP` → nuovo host
 
 ---
 
