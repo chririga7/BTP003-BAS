@@ -19,4 +19,4 @@ server:
         backend:
           - path: /sap
             url: https://c5addbf6-3a6f-464c-afb9-bde97029ca8b.abap.eu10.hana.ondemand.com
-            destination: ABAP_Employee_RAP
+            destination: BAS_DEPLOY_L01
