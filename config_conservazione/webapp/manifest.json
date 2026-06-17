@@ -170,7 +170,19 @@
                 "@com.sap.vocabularies.UI.v1.LineItem": {
                   "tableSettings": {
                     "type": "ResponsiveTable",
-                    "selectionMode": "Multi"
+                    "selectionMode": "ForceMulti"
+                  }
+                },
+                "/Config/@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "ResponsiveTable",
+                    "selectionMode": "ForceMulti"
+                  }
+                },
+                "/DocType/@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "ResponsiveTable",
+                    "selectionMode": "ForceMulti"
                   }
                 }
               }
