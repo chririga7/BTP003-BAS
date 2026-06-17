@@ -78,6 +78,10 @@
               <PropertyValue Property="Value" Path="ChangedAt"/>
               <PropertyValue Property="Label" String="Ultima Modifica"/>
             </Record>
+            <Record Type="UI.DataFieldForAction">
+              <PropertyValue Property="Label" String="Copia Società"/>
+              <PropertyValue Property="Action" String="com.sap.gateway.srvd_a2x.zsd_doc_admin_tenant.v0001.copyCompany"/>
+            </Record>
           </Collection>
         </Annotation>
 
@@ -217,6 +221,10 @@
             <Record Type="UI.DataField">
               <PropertyValue Property="Value" Path="ChangedAt"/>
               <PropertyValue Property="Label" String="Ultima Modifica"/>
+            </Record>
+            <Record Type="UI.DataFieldForAction">
+              <PropertyValue Property="Label" String="Copia Parametro"/>
+              <PropertyValue Property="Action" String="com.sap.gateway.srvd_a2x.zsd_doc_admin_tenant.v0001.copyConfig"/>
             </Record>
           </Collection>
         </Annotation>
@@ -362,6 +370,10 @@
             <Record Type="UI.DataField">
               <PropertyValue Property="Value" Path="ChangedAt"/>
               <PropertyValue Property="Label" String="Ultima Modifica"/>
+            </Record>
+            <Record Type="UI.DataFieldForAction">
+              <PropertyValue Property="Label" String="Copia Tipo Documento"/>
+              <PropertyValue Property="Action" String="com.sap.gateway.srvd_a2x.zsd_doc_admin_tenant.v0001.copyDoctype"/>
             </Record>
           </Collection>
         </Annotation>
