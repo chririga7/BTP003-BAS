@@ -8,8 +8,8 @@
   <edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
     <edmx:Include Namespace="Org.OData.Core.V1" Alias="Core"/>
   </edmx:Reference>
-  <edmx:Reference Uri="/sap/opu/odata4/sap/zsb_doc_config_tenant_api/srvd_a2x/sap/zsd_doc_config_tenant/0001/$metadata">
-    <edmx:Include Namespace="com.sap.gateway.srvd_a2x.zsd_doc_config_tenant.v0001" Alias="SAP"/>
+  <edmx:Reference Uri="/sap/opu/odata4/sap/zsb_doc_admin_tenant_api/srvd_a2x/sap/zsd_doc_admin_tenant/0001/$metadata">
+    <edmx:Include Namespace="com.sap.gateway.srvd_a2x.zsd_doc_admin_tenant.v0001" Alias="SAP"/>
   </edmx:Reference>
   <edmx:DataServices>
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="local.annotation">
@@ -18,7 +18,7 @@
       <!-- COMPANY — Anagrafica Società                                 -->
       <!-- ============================================================ -->
 
-      <Annotations Target="com.sap.gateway.srvd_a2x.zsd_doc_config_tenant.v0001.CompanyType">
+      <Annotations Target="com.sap.gateway.srvd_a2x.zsd_doc_admin_tenant.v0001.CompanyType">
 
         <!-- Tab label per multi-tab -->
         <Annotation Term="UI.SelectionVariant" Qualifier="Company">
@@ -164,7 +164,7 @@
       <!-- CONFIG — Parametri Configurazione Tenant                     -->
       <!-- ============================================================ -->
 
-      <Annotations Target="com.sap.gateway.srvd_a2x.zsd_doc_config_tenant.v0001.ConfigType">
+      <Annotations Target="com.sap.gateway.srvd_a2x.zsd_doc_admin_tenant.v0001.ConfigType">
 
         <Annotation Term="UI.SelectionVariant" Qualifier="Config">
           <Record Type="UI.SelectionVariantType">
@@ -300,7 +300,7 @@
       <!-- DOCTYPE — Configurazione Tipi Documento                      -->
       <!-- ============================================================ -->
 
-      <Annotations Target="com.sap.gateway.srvd_a2x.zsd_doc_config_tenant.v0001.DocTypeType">
+      <Annotations Target="com.sap.gateway.srvd_a2x.zsd_doc_admin_tenant.v0001.DocTypeType">
 
         <Annotation Term="UI.SelectionVariant" Qualifier="DocType">
           <Record Type="UI.SelectionVariantType">

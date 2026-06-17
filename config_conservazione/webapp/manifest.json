@@ -15,7 +15,7 @@
     },
     "dataSources": {
       "mainService": {
-        "uri": "/sap/opu/odata4/sap/zsb_doc_config_tenant_api/srvd_a2x/sap/zsd_doc_config_tenant/0001/",
+        "uri": "/sap/opu/odata4/sap/zsb_doc_admin_tenant_api/srvd_a2x/sap/zsd_doc_admin_tenant/0001/",
         "type": "OData",
         "settings": {
           "annotations": [
