@@ -503,6 +503,46 @@
 
       </Annotations>
 
+      <!-- ============================================================ -->
+      <!-- SIDE EFFECTS — refresh lista dopo la copy action             -->
+      <!-- ============================================================ -->
+
+      <Annotations Target="com.sap.gateway.srvd_a2x.zsd_doc_admin_tenant.v0001.copyCompany(com.sap.gateway.srvd_a2x.zsd_doc_admin_tenant.v0001.CompanyType)">
+        <Annotation Term="Common.SideEffects">
+          <Record Type="Common.SideEffectsType">
+            <PropertyValue Property="TargetEntities">
+              <Collection>
+                <NavigationPropertyPath>/com.sap.gateway.srvd_a2x.zsd_doc_admin_tenant.v0001.Container/Company</NavigationPropertyPath>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+      </Annotations>
+
+      <Annotations Target="com.sap.gateway.srvd_a2x.zsd_doc_admin_tenant.v0001.copyConfig(com.sap.gateway.srvd_a2x.zsd_doc_admin_tenant.v0001.ConfigType)">
+        <Annotation Term="Common.SideEffects">
+          <Record Type="Common.SideEffectsType">
+            <PropertyValue Property="TargetEntities">
+              <Collection>
+                <NavigationPropertyPath>/com.sap.gateway.srvd_a2x.zsd_doc_admin_tenant.v0001.Container/Config</NavigationPropertyPath>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+      </Annotations>
+
+      <Annotations Target="com.sap.gateway.srvd_a2x.zsd_doc_admin_tenant.v0001.copyDoctype(com.sap.gateway.srvd_a2x.zsd_doc_admin_tenant.v0001.DocTypeType)">
+        <Annotation Term="Common.SideEffects">
+          <Record Type="Common.SideEffectsType">
+            <PropertyValue Property="TargetEntities">
+              <Collection>
+                <NavigationPropertyPath>/com.sap.gateway.srvd_a2x.zsd_doc_admin_tenant.v0001.Container/DocType</NavigationPropertyPath>
+              </Collection>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+      </Annotations>
+
     </Schema>
   </edmx:DataServices>
 </edmx:Edmx>
