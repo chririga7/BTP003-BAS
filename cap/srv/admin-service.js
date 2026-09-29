@@ -1,4 +1,5 @@
 import cds from '@sap/cds'
+import { validateDomain } from './lib/fixed-values.js'
 
 const { SELECT, INSERT, UPDATE } = cds.ql
 
@@ -11,6 +12,12 @@ export default class AdminService extends cds.ApplicationService {
       editorHidden: !req.user.is('Editor'),
       adminHidden: !req.user.is('Admin')
     }))
+
+    // Direzione dei Tipi Documento: dominio ZDOC_DOM_DIRECTION, anche nella copia
+    const checkDirection = element => req =>
+      validateDomain(req, element, 'ZDOC_DOM_DIRECTION', v => `Direzione '${v}' non valida`)
+    this.before(['CREATE', 'UPDATE'], DocType, checkDirection('DocDirection'))
+    this.before('copyDoctype', DocType, checkDirection('NewDocDirection'))
 
     this.on('copyCompany', Company, req =>
       this.copy(req, Company, db.Company, { CompanyCode: req.data.NewCompanyCode }))

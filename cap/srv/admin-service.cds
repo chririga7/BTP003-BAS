@@ -1,4 +1,5 @@
 using { conservazione as db } from '../db/schema';
+using from '../db/platform';
 
 // Servizio della app di configurazione (Fiori Elements V4, draft).
 // Ruoli gerarchici: Viewer ⊂ Editor ⊂ Admin (vedi xs-security.json).
@@ -27,11 +28,15 @@ service AdminService {
   entity DocType as projection on db.DocType actions {
     action copyDoctype(
       NewDocType      : String(10) @mandatory @title: 'Nuovo Tipo Documento',
-      NewDocDirection : String(1)  @mandatory @title: 'Nuova Direzione'
+      NewDocDirection : String(10) @mandatory @title: 'Nuova Direzione'
     ) returns DocType;
     action deactivate() returns DocType;
     action reactivate() returns DocType;
   };
+
+  // Valori ammessi della Direzione (dominio ZDOC_DOM_DIRECTION), per la tendina.
+  @readonly
+  entity FixedValues as projection on db.FixedValues where DomainName = 'ZDOC_DOM_DIRECTION';
 
   // Permessi dell'utente corrente: la UI li usa per nascondere i bottoni.
   @odata.singleton

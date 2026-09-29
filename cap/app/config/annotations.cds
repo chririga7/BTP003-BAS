@@ -241,3 +241,31 @@ annotate AdminService.DocType actions {
   deactivate @Core.OperationAvailable: { $edmJson: { $And: [ { $Path: 'in/IsActiveEntity' }, { $Path: 'in/IsActive' } ] } };
   reactivate @Core.OperationAvailable: { $edmJson: { $And: [ { $Path: 'in/IsActiveEntity' }, { $Not: { $Path: 'in/IsActive' } } ] } };
 };
+
+// Direzione: tendina sul dominio ZDOC_DOM_DIRECTION (come ZI_VH_FIXED_VALUE in ABAP),
+// sia nel dettaglio sia nel dialog della copia.
+annotate AdminService.FixedValues with @UI.PresentationVariant #VH: {
+  SortOrder: [{ Property: SortOrder, Descending: false }]
+} {
+  ValueCode @Common.Text: Description @Common.TextArrangement: #TextFirst;
+};
+
+annotate AdminService.DocType with {
+  DocDirection @Common.ValueListWithFixedValues @Common.ValueList: {
+    CollectionPath: 'FixedValues', PresentationVariantQualifier: 'VH',
+    Parameters: [
+      { $Type: 'Common.ValueListParameterInOut', LocalDataProperty: DocDirection, ValueListProperty: 'ValueCode' },
+      { $Type: 'Common.ValueListParameterConstant', ValueListProperty: 'DomainName', Constant: 'ZDOC_DOM_DIRECTION' }
+    ]
+  };
+};
+
+annotate AdminService.DocType actions {
+  copyDoctype(NewDocDirection @Common.ValueListWithFixedValues @Common.ValueList: {
+    CollectionPath: 'FixedValues', PresentationVariantQualifier: 'VH',
+    Parameters: [
+      { $Type: 'Common.ValueListParameterInOut', LocalDataProperty: NewDocDirection, ValueListProperty: 'ValueCode' },
+      { $Type: 'Common.ValueListParameterConstant', ValueListProperty: 'DomainName', Constant: 'ZDOC_DOM_DIRECTION' }
+    ]
+  });
+};

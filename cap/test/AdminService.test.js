@@ -78,9 +78,9 @@ describe('AdminService - azioni', () => {
   })
 
   it('copia di un tipo documento (chiave composta)', async () => {
-    const { data } = await POST(`${DocType('FATTURA', 'O')}/AdminService.copyDoctype`,
-      { NewDocType: 'NOTACRED', NewDocDirection: 'O' }, as('editor'))
-    expect(data).to.containSubset({ DocType: 'NOTACRED', DocDirection: 'O', ArchivaDocClass: 'FATT_ATTIVE', AutoRetry: true })
+    const { data } = await POST(`${DocType('FATTURA', 'OUTGOING')}/AdminService.copyDoctype`,
+      { NewDocType: 'NOTACRED', NewDocDirection: 'OUTGOING' }, as('editor'))
+    expect(data).to.containSubset({ DocType: 'NOTACRED', DocDirection: 'OUTGOING', ArchivaDocClass: 'FATT_ATTIVE', AutoRetry: true })
   })
 
   it('editor non copia i parametri', async () => {
@@ -107,5 +107,31 @@ describe('AdminService - azioni su bozza', () => {
   it('azione su una bozza non ammessa', async () => {
     await POST(`${Company('1000')}/AdminService.draftEdit`, { PreserveChanges: true }, as('editor'))
     expect(await status(POST(`${Company('1000', false)}/AdminService.copyCompany`, { NewCompanyCode: '1200' }, as('editor')))).to.be.greaterThan(399)
+  })
+})
+
+describe('AdminService - direzione dei tipi documento', () => {
+  beforeEach(test.data.reset)
+
+  const failure = p => p.then(() => ({}), e => ({ status: e.status, ...e.response?.data?.error }))
+  const DocTypeDraft = (type, dir) => `${admin}/DocType(DocType='${type}',DocDirection='${dir}',IsActiveEntity=false)`
+
+  it('create con direzione non ammessa → 400', async () => {
+    await POST(`${admin}/DocType`, { DocType: 'ORDINE', DocDirection: 'ENTRAMBE' }, as('editor'))
+    const res = await failure(POST(`${DocTypeDraft('ORDINE', 'ENTRAMBE')}/AdminService.draftActivate`, {}, as('editor')))
+    expect(res).to.containSubset({ status: 400, message: "Direzione 'ENTRAMBE' non valida" })
+  })
+
+  it('copia con direzione non ammessa → 400, in minuscolo viene normalizzata', async () => {
+    const copy = data => POST(`${DocType('DDT', 'OUTGOING')}/AdminService.copyDoctype`, data, as('editor'))
+    expect(await failure(copy({ NewDocType: 'DDT', NewDocDirection: 'X' })))
+      .to.containSubset({ status: 400, message: "Direzione 'X' non valida" })
+    const { data } = await copy({ NewDocType: 'DDT', NewDocDirection: 'incoming' })
+    expect(data).to.containSubset({ DocType: 'DDT', DocDirection: 'INCOMING', ArchivaDocClass: 'DDT_USCITA' })
+  })
+
+  it('la tendina espone solo i valori della direzione', async () => {
+    const { data } = await GET(`${admin}/FixedValues?$orderby=SortOrder`, as('viewer'))
+    expect(data.value.map(v => v.ValueCode)).to.deep.equal(['INCOMING', 'OUTGOING', 'BOTH'])
   })
 })

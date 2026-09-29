@@ -24,7 +24,7 @@ entity Config : managed {
 
 entity DocType : managed {
   key DocType           : String(10)  @title: 'Tipo Documento';
-  key DocDirection      : String(1)   @title: 'Direzione';
+  key DocDirection      : String(10)  @title: 'Direzione'; // dominio ZDOC_DOM_DIRECTION
       ArchivaDocClass   : String(30)  @title: 'Classe Documento Archiva';
       RetentionYears    : Integer     @title: 'Anni Conservazione';
       AdapterId         : String(30)  @title: 'Adapter ID';
