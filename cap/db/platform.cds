@@ -15,11 +15,11 @@ entity ApiReg : managed {
       BasePath          : String(256) @title: 'Base Path';
       ScmName           : String(30)  @title: 'Service Consumption Model';
       ApiStatus         : String(10) default 'PLANNED' @title: 'Stato'; // dominio ZDOC_DOM_STATUS
-      StatusCriticality : Integer = (case ApiStatus
-                                       when 'ACTIVE'     then 3
-                                       when 'PLANNED'    then 2
-                                       when 'DEPRECATED' then 1
-                                       else 0 end);
+      // CASE con condizioni esplicite: la forma "case X when 'A'" genera SQL non valido su HANA (bozze)
+      StatusCriticality : Integer = (case when ApiStatus = 'ACTIVE'     then 3
+                                          when ApiStatus = 'PLANNED'    then 2
+                                          when ApiStatus = 'DEPRECATED' then 1
+                                          else 0 end);
 }
 
 // Registro Adapter Documento (ZDOC_ADAPTER_REG)
@@ -31,11 +31,10 @@ entity AdapterReg : managed {
       ErpFamily         : String(10)  @title: 'Famiglia ERP';  // dominio ZDOC_DOM_ERP_FAMILY
       RequiredApis      : String(100) @title: 'API Richieste'; // testo CSV, non è un'associazione
       AdapterStatus     : String(10) default 'PLANNED' @title: 'Stato'; // dominio ZDOC_DOM_STATUS
-      StatusCriticality : Integer = (case AdapterStatus
-                                       when 'ACTIVE'     then 3
-                                       when 'PLANNED'    then 2
-                                       when 'DEPRECATED' then 1
-                                       else 0 end);
+      StatusCriticality : Integer = (case when AdapterStatus = 'ACTIVE'     then 3
+                                          when AdapterStatus = 'PLANNED'    then 2
+                                          when AdapterStatus = 'DEPRECATED' then 1
+                                          else 0 end);
       Description       : String(100) @title: 'Descrizione';
 }
 
