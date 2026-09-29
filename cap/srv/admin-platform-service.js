@@ -1,4 +1,5 @@
 import cds from '@sap/cds'
+import { validateDomain } from './lib/fixed-values.js'
 
 const { SELECT, UPDATE } = cds.ql
 
@@ -33,7 +34,9 @@ export default class AdminPlatformService extends cds.ApplicationService {
 
     // Validazione domini su create e update (in ABAP solo create, limite OData V2)
     for (const [name, fields] of Object.entries(DOMAIN_FIELDS))
-      this.before(['CREATE', 'UPDATE'], this.entities[name], req => this.validateDomains(req, fields))
+      this.before(['CREATE', 'UPDATE'], this.entities[name], async req => {
+        for (const [element, domain, message] of fields) await validateDomain(req, element, domain, message)
+      })
 
     for (const [name, [field, off, on]] of Object.entries(SOFT_DELETE)) {
       const entity = this.entities[name]
@@ -42,17 +45,6 @@ export default class AdminPlatformService extends cds.ApplicationService {
     }
 
     return super.init()
-  }
-
-  // Valori sempre in maiuscolo (flag uppercase dei domini ABAP), poi controllo contro FixedValues.
-  async validateDomains(req, fields) {
-    const { FixedValues } = cds.entities('conservazione')
-    for (const [element, domain, message] of fields) {
-      if (!req.data[element]) continue
-      const value = req.data[element] = String(req.data[element]).toUpperCase()
-      if (!await SELECT.one.from(FixedValues).where({ DomainName: domain, ValueCode: value }))
-        req.error({ status: 400, message: message(value), target: element })
-    }
   }
 
   // Aggiorna il campo di stato direttamente su DB; rifiuta se il record ha una bozza aperta.
