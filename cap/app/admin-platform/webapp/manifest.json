@@ -1,0 +1,178 @@
+{
+  "_version": "1.59.0",
+  "sap.app": {
+    "id": "z.doc.platform.adminplatform",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "1.0.0"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "dataSources": {
+      "mainService": {
+        "uri": "/odata/v4/admin-platform/",
+        "type": "OData",
+        "settings": {
+          "odataVersion": "4.0"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "sap-icon://it-system"
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.120.0",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.fe.core": {},
+        "sap.fe.templates": {},
+        "sap.ui.fl": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "z.doc.platform.adminplatform.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      }
+    },
+    "routing": {
+      "config": {},
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "MainList",
+          "target": "MainList"
+        },
+        {
+          "pattern": "ApiRegistry({key}):?query:",
+          "name": "ApiRegistryObjectPage",
+          "target": "ApiRegistryObjectPage"
+        },
+        {
+          "pattern": "AdapterRegistry({key}):?query:",
+          "name": "AdapterRegistryObjectPage",
+          "target": "AdapterRegistryObjectPage"
+        },
+        {
+          "pattern": "ProviderConfig({key}):?query:",
+          "name": "ProviderConfigObjectPage",
+          "target": "ProviderConfigObjectPage"
+        }
+      ],
+      "targets": {
+        "MainList": {
+          "type": "Component",
+          "id": "MainList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "contextPath": "/ApiRegistry",
+              "variantManagement": "Page",
+              "initialLoad": "Enabled",
+              "navigation": {
+                "ApiRegistry": {
+                  "detail": {
+                    "route": "ApiRegistryObjectPage"
+                  }
+                },
+                "AdapterRegistry": {
+                  "detail": {
+                    "route": "AdapterRegistryObjectPage"
+                  }
+                },
+                "ProviderConfig": {
+                  "detail": {
+                    "route": "ProviderConfigObjectPage"
+                  }
+                }
+              },
+              "views": {
+                "paths": [
+                  {
+                    "key": "tabApi",
+                    "contextPath": "/ApiRegistry",
+                    "annotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#ApiRegistry"
+                  },
+                  {
+                    "key": "tabAdapter",
+                    "contextPath": "/AdapterRegistry",
+                    "annotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#AdapterRegistry"
+                  },
+                  {
+                    "key": "tabProvider",
+                    "contextPath": "/ProviderConfig",
+                    "annotationPath": "com.sap.vocabularies.UI.v1.SelectionVariant#ProviderConfig"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "ApiRegistryObjectPage": {
+          "type": "Component",
+          "id": "ApiRegistryObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "contextPath": "/ApiRegistry",
+              "editableHeaderContent": false
+            }
+          }
+        },
+        "AdapterRegistryObjectPage": {
+          "type": "Component",
+          "id": "AdapterRegistryObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "contextPath": "/AdapterRegistry",
+              "editableHeaderContent": false
+            }
+          }
+        },
+        "ProviderConfigObjectPage": {
+          "type": "Component",
+          "id": "ProviderConfigObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "contextPath": "/ProviderConfig",
+              "editableHeaderContent": false
+            }
+          }
+        }
+      }
+    }
+  },
+  "sap.fiori": {
+    "archeType": "transactional"
+  }
+}

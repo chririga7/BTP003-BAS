@@ -10,8 +10,8 @@ build-parameters:
       commands:
         - npm ci
         - npx cds build --production
-        # la UI Fiori è servita dall'approuter (route localDir in xs-app.json)
-        - node -e "require('fs').cpSync('app/config/webapp', '.deploy/app-router/resources/config/webapp', {recursive:true})"
+        # le UI Fiori sono servite dall'approuter (route localDir in xs-app.json)
+        - node -e "for (const a of ['config', 'admin-platform']) require('fs').cpSync('app/'+a+'/webapp', '.deploy/app-router/resources/'+a+'/webapp', {recursive:true})"
 modules:
   - name: config-conservazione-srv
     type: nodejs

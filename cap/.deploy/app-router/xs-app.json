@@ -8,6 +8,12 @@
       "cacheControl": "no-cache, no-store, must-revalidate"
     },
     {
+      "source": "^/admin-platform/webapp/(.*)$",
+      "target": "$1",
+      "localDir": "resources/admin-platform/webapp",
+      "cacheControl": "no-cache, no-store, must-revalidate"
+    },
+    {
       "source": "^/(.*)$",
       "target": "$1",
       "destination": "srv-api",
