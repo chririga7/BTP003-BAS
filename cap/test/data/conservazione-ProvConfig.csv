@@ -1,0 +1,8 @@
+ConfigKey;ConfigValue;Description;IsActive
+CONSERVATORE_CF;03237470236;CF conservatore;true
+CONSERVATORE_NOME;Archiva S.r.L.;Nome conservatore;true
+APP_NAME;FastDoc;Nome app nel SIP;true
+APP_VERSION;1.0.0;Versione app;true
+HASH_FILE_ALGO;SHA-256;Standard UNI SInCRO;true
+HASH_ZIP_ALGO;MD5;Richiesto da Archiva ADP;true
+IDV_NAMESPACE;http://www.uni.com/U3011/sincro/;Namespace XML IdV;true

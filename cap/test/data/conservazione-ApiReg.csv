@@ -1,0 +1,6 @@
+ApiId;OdataVersion;EntitySet;ApiStatus
+EDOCFILE;V4;ElectronicDocFile;ACTIVE
+SUPPL_INV;V2;A_SupplierInvoice;ACTIVE
+CV_ATTACH;V2;AttachmentContentSet;ACTIVE
+PURCH_ORD;V2;A_PurchaseOrder;PLANNED
+PURCH_CONTR;V2;A_PurchaseContract;PLANNED
