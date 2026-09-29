@@ -88,6 +88,10 @@ resources:
             description: 'Configurazione Conservazione - amministrazione completa'
             role-template-references:
               - '$XSAPPNAME.Admin'
+          - name: 'ConfigConservazione PlatformAdmin'
+            description: 'Configurazione Conservazione - ADMIN Archiva (piattaforma + clienti)'
+            role-template-references:
+              - '$XSAPPNAME.PlatformAdmin'
     requires:
       - name: app-api
   - name: config-conservazione-db

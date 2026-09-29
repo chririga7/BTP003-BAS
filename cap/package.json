@@ -43,6 +43,14 @@
                 "Admin"
               ]
             },
+            "platform": {
+              "roles": [
+                "Viewer",
+                "Editor",
+                "Admin",
+                "PlatformAdmin"
+              ]
+            },
             "engine": {
               "roles": [
                 "ConfigReader"
