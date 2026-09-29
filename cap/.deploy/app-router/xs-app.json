@@ -1,16 +1,21 @@
 {
   "welcomeFile": "/config/webapp/index.html",
+  "errorPage": [
+    { "status": 403, "file": "./errore-403.html" }
+  ],
   "routes": [
     {
       "source": "^/config/webapp/(.*)$",
       "target": "$1",
       "localDir": "resources/config/webapp",
+      "scope": "$XSAPPNAME.Viewer",
       "cacheControl": "no-cache, no-store, must-revalidate"
     },
     {
       "source": "^/admin-platform/webapp/(.*)$",
       "target": "$1",
       "localDir": "resources/admin-platform/webapp",
+      "scope": "$XSAPPNAME.PlatformAdmin",
       "cacheControl": "no-cache, no-store, must-revalidate"
     },
     {

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impossibile aprire l'app</title>
+    <style>
+        :root { --bg: #f5f6f7; --text: #1d2d3e; --muted: #556b82; --code: #eaecee; }
+        @media (prefers-color-scheme: dark) {
+            :root { --bg: #12171c; --text: #eaecee; --muted: #a9b4be; --code: #29313a; }
+        }
+        body {
+            margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+            font-family: "72", "Segoe UI", Arial, sans-serif; background: var(--bg); color: var(--text);
+        }
+        main { max-width: 36rem; padding: 2rem 1rem; text-align: center; }
+        h1 { font-size: 1.5rem; margin: 0 0 1rem; }
+        p { line-height: 1.5; margin: 0 0 .75rem; color: var(--muted); }
+        code { background: var(--code); color: var(--text); padding: .1rem .35rem; border-radius: .25rem; }
+    </style>
+</head>
+<body>
+<!-- Testi allineati ai messaggi standard SAP (UI5 1.148): launchpad
+     failed_to_open_app_missing_configuration_or_role_assignment e Fiori Elements
+     C_COLLABORATIONDRAFT_USER_UNAUTHORIZED. Nessuna illustrazione: le Fiori guidelines
+     non prevedono illustrated message per situazioni che bloccano l'utente. -->
+<main>
+    <h1>Impossibile aprire l'app</h1>
+    <p>L'utente non è autorizzato ad accedere a questa applicazione.
+        Contattare l'amministratore in relazione all'autorizzazione richiesta.</p>
+    <p>Autorizzazione richiesta (role collection):
+        <code>ConfigConservazione Viewer</code>, <code>Editor</code> o <code>Admin</code> per la Configurazione Cliente,
+        <code>ConfigConservazione PlatformAdmin</code> per la Configurazione Piattaforma.</p>
+    <p>Dopo l'assegnazione dell'autorizzazione, chiudere il browser e accedere di nuovo.</p>
+</main>
+</body>
+</html>
