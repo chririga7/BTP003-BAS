@@ -107,10 +107,17 @@
     <h1>Impossibile aprire l'app</h1>
     <p>L'utente non è autorizzato ad accedere a questa applicazione.
         Contattare l'amministratore in relazione all'autorizzazione richiesta.</p>
-    <p>Autorizzazione richiesta (role collection):
-        <code>ConfigConservazione Viewer</code>, <code>Editor</code> o <code>Admin</code> per la Configurazione Cliente,
-        <code>ConfigConservazione PlatformAdmin</code> per la Configurazione Piattaforma.</p>
+    <p data-app="config">Configurazione Cliente: autorizzazione richiesta (role collection)
+        <code>ConfigConservazione Viewer</code>, <code>Editor</code> o <code>Admin</code>.</p>
+    <p data-app="admin-platform">Configurazione Piattaforma: autorizzazione richiesta (role collection)
+        <code>ConfigConservazione PlatformAdmin</code>.</p>
     <p>Dopo l'assegnazione dell'autorizzazione, chiudere il browser e accedere di nuovo.</p>
 </main>
+<script>
+    // Unica pagina 403 per tutto l'approuter: l'URL resta quello dell'app richiesta,
+    // quindi mostriamo solo il ruolo di quell'app (senza JavaScript restano visibili entrambi).
+    const app = location.pathname.startsWith('/admin-platform/') ? 'admin-platform' : 'config';
+    document.querySelectorAll('[data-app]').forEach(p => { p.hidden = p.dataset.app !== app; });
+</script>
 </body>
 </html>
