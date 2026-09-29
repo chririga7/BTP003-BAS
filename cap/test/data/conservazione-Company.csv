@@ -1,0 +1,6 @@
+CompanyCode;CompanyName;TaxCode;Country;IsActive
+1000;Archiva Italia S.p.A.;IT01234567890;IT;true
+2000;Archiva Deutschland GmbH;DE123456789;DE;true
+3000;Archiva France SAS;FR12345678901;FR;true
+4000;Archiva Espana S.L.;ESB12345678;ES;false
+5000;Archiva Polska Sp. z o.o.;PL1234567890;PL;false

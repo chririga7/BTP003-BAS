@@ -1,0 +1,59 @@
+{
+  "name": "config-conservazione",
+  "version": "1.0.0",
+  "description": "Configurazione Conservazione - società, parametri e tipi documento (CAP)",
+  "type": "module",
+  "dependencies": {
+    "@cap-js/hana": "^3",
+    "@sap/cds": "^10",
+    "@sap/xssec": "^4"
+  },
+  "devDependencies": {
+    "@cap-js/cds-test": "^1",
+    "@cap-js/sqlite": "^3",
+    "@sap/cds-dk": "^10.1.0"
+  },
+  "scripts": {
+    "start": "cds-serve",
+    "watch": "cds watch",
+    "test": "node --test"
+  },
+  "private": true,
+  "cds": {
+    "requires": {
+      "[development]": {
+        "auth": {
+          "kind": "mocked",
+          "users": {
+            "viewer": {
+              "roles": [
+                "Viewer"
+              ]
+            },
+            "editor": {
+              "roles": [
+                "Viewer",
+                "Editor"
+              ]
+            },
+            "admin": {
+              "roles": [
+                "Viewer",
+                "Editor",
+                "Admin"
+              ]
+            },
+            "engine": {
+              "roles": [
+                "ConfigReader"
+              ]
+            }
+          }
+        }
+      },
+      "[production]": {
+        "auth": "xsuaa"
+      }
+    }
+  }
+}

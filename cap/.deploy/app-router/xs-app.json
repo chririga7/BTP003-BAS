@@ -1,0 +1,17 @@
+{
+  "welcomeFile": "/config/webapp/index.html",
+  "routes": [
+    {
+      "source": "^/config/webapp/(.*)$",
+      "target": "$1",
+      "localDir": "resources/config/webapp",
+      "cacheControl": "no-cache, no-store, must-revalidate"
+    },
+    {
+      "source": "^/(.*)$",
+      "target": "$1",
+      "destination": "srv-api",
+      "csrfProtection": true
+    }
+  ]
+}

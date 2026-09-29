@@ -1,0 +1,53 @@
+{
+  "scopes": [
+    {
+      "name": "$XSAPPNAME.Viewer",
+      "description": "Lettura configurazione"
+    },
+    {
+      "name": "$XSAPPNAME.Editor",
+      "description": "Gestione società e tipi documento"
+    },
+    {
+      "name": "$XSAPPNAME.Admin",
+      "description": "Amministrazione completa"
+    },
+    {
+      "name": "$XSAPPNAME.ConfigReader",
+      "description": "API di lettura per il motore di conservazione"
+    }
+  ],
+  "attributes": [],
+  "role-templates": [
+    {
+      "name": "Viewer",
+      "description": "Sola lettura",
+      "scope-references": [
+        "$XSAPPNAME.Viewer"
+      ],
+      "attribute-references": []
+    },
+    {
+      "name": "Editor",
+      "description": "Viewer + crea/modifica/copia società e tipi documento",
+      "scope-references": [
+        "$XSAPPNAME.Viewer",
+        "$XSAPPNAME.Editor"
+      ],
+      "attribute-references": []
+    },
+    {
+      "name": "Admin",
+      "description": "Editor + elimina, disattiva/riattiva, parametri",
+      "scope-references": [
+        "$XSAPPNAME.Viewer",
+        "$XSAPPNAME.Editor",
+        "$XSAPPNAME.Admin"
+      ],
+      "attribute-references": []
+    }
+  ],
+  "authorities": [
+    "$XSAPPNAME.ConfigReader"
+  ]
+}

@@ -1,0 +1,5 @@
+DocType;DocDirection;ArchivaDocClass;RetentionYears;AdapterId;IsActive;WaitYellowDays;WaitRedDays;MaxRetry;RetryIntvHours;FileExcludeExt;SipNamingPat;AutoRetry
+FATTURA;O;FATT_ATTIVE;10;ADP_FATT;true;3;7;3;6;tmp,bak;FATT_{YYYY}{MM}_{SEQ};true
+FATTURA;I;FATT_PASSIVE;10;ADP_FATT;true;3;7;3;6;tmp,bak;FATTP_{YYYY}{MM}_{SEQ};true
+DDT;O;DDT_USCITA;10;ADP_DDT;true;2;5;5;4;tmp;DDT_{YYYY}{MM}_{SEQ};false
+CONTRATTO;I;CONTRATTI;20;ADP_DOC;false;5;10;3;12;;CTR_{YYYY}_{SEQ};false

@@ -1,0 +1,6 @@
+ConfigKey;ConfigValue;Description;IsActive
+CONSERV_PROVIDER;INFOCERT;Provider di conservazione di default;true
+API_ENDPOINT;https://api.conservazione.example/v1;Endpoint API conservazione;true
+MAX_RETRY;3;Numero massimo tentativi;true
+RETENTION_YEARS;10;Anni di conservazione di default;true
+NOTIFICATION_EMAIL;conservazione@archivagroup.it;Email notifiche conservazione;false

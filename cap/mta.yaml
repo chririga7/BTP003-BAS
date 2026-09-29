@@ -1,0 +1,97 @@
+_schema-version: 3.3.0
+ID: config-conservazione
+version: 1.0.0
+description: "Configurazione Conservazione - società, parametri e tipi documento (CAP)"
+parameters:
+  enable-parallel-deployments: true
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - npm ci
+        - npx cds build --production
+        # la UI Fiori è servita dall'approuter (route localDir in xs-app.json)
+        - node -e "require('fs').cpSync('app/config/webapp', '.deploy/app-router/resources/config/webapp', {recursive:true})"
+modules:
+  - name: config-conservazione-srv
+    type: nodejs
+    path: gen/srv
+    parameters:
+      instances: 1
+      buildpack: nodejs_buildpack
+    build-parameters:
+      builder: npm-ci
+    provides:
+      - name: srv-api # required by consumers of CAP services (e.g. approuter)
+        properties:
+          srv-url: ${default-url}
+    requires:
+      - name: config-conservazione-auth
+      - name: config-conservazione-db
+
+  - name: config-conservazione-db-deployer
+    type: hdb
+    path: gen/db
+    parameters:
+      buildpack: nodejs_buildpack
+    requires:
+      - name: config-conservazione-db
+  - name: config-conservazione
+    type: approuter.nodejs
+    path: .deploy/app-router
+    build-parameters:
+      ignore: ["default-env.json"] # solo per test locale
+    parameters:
+      keep-existing-routes: true
+      disk-quota: 256M
+      memory: 256M
+    requires:
+      - name: srv-api
+        group: destinations
+        properties:
+          name: srv-api # must be used in xs-app.json as well
+          url: ~{srv-url}
+          forwardAuthToken: true
+      - name: config-conservazione-auth
+    provides:
+      - name: app-api
+        properties:
+          app-protocol: ${protocol}
+          app-uri: ${default-uri}
+
+resources:
+  - name: config-conservazione-auth
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: xsuaa
+      service-plan: application
+      path: ./xs-security.json
+      config:
+        xsappname: config-conservazione-${org}-${space}
+        tenant-mode: dedicated
+        oauth2-configuration:
+          credential-types:
+            - "binding-secret"
+            - "x509"
+          redirect-uris:
+            - https://*~{app-api/app-uri}/**
+        role-collections:
+          - name: 'ConfigConservazione Viewer'
+            description: 'Configurazione Conservazione - sola lettura'
+            role-template-references:
+              - '$XSAPPNAME.Viewer'
+          - name: 'ConfigConservazione Editor'
+            description: 'Configurazione Conservazione - gestione società e tipi documento'
+            role-template-references:
+              - '$XSAPPNAME.Editor'
+          - name: 'ConfigConservazione Admin'
+            description: 'Configurazione Conservazione - amministrazione completa'
+            role-template-references:
+              - '$XSAPPNAME.Admin'
+    requires:
+      - name: app-api
+  - name: config-conservazione-db
+    type: com.sap.xs.hdi-container
+    parameters:
+      service: hana
+      service-plan: hdi-shared
