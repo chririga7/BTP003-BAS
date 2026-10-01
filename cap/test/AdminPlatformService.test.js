@@ -125,6 +125,38 @@ describe('AdminPlatformService - ProviderConfig', () => {
   })
 })
 
+describe('AdminPlatformService - filtro Attivo della lista', () => {
+  beforeEach(test.data.reset)
+
+  // IsActive calcolato su API e Adapter (story 15.C9): non attivo solo se DEPRECATED
+  const ids = async (set, key, filter) => {
+    const { data } = await GET(`${base}/${set}?$filter=${filter}&$select=${key}&$orderby=${key}`, as('platform'))
+    return data.value.map(r => r[key])
+  }
+
+  it('API e Adapter: attivo = stato diverso da DEPRECATED, anche PLANNED', async () => {
+    await POST(`${Api('PURCH_ORD')}/AdminPlatformService.deactivate`, {}, as('platform'))
+    await POST(`${Adapter('EDOC_ECC')}/AdminPlatformService.deactivate`, {}, as('platform'))
+    expect(await ids('ApiRegistry', 'ApiId', 'IsActiveEntity eq true and IsActive eq true'))
+      .to.deep.equal(['CV_ATTACH', 'EDOCFILE', 'PURCH_CONTR', 'SUPPL_INV'])
+    expect(await ids('ApiRegistry', 'ApiId', 'IsActiveEntity eq true and IsActive eq false')).to.deep.equal(['PURCH_ORD'])
+    expect(await ids('AdapterRegistry', 'AdapterId', 'IsActiveEntity eq true and IsActive eq false')).to.deep.equal(['EDOC_ECC'])
+  })
+
+  it('con "Stato di modifica: Tutto" il filtro vale anche sulle bozze', async () => {
+    await POST(`${Api('EDOCFILE')}/AdminPlatformService.draftEdit`, { PreserveChanges: true }, as('platform'))
+    await PATCH(Api('EDOCFILE', false), { ApiStatus: 'DEPRECATED' }, as('platform'))
+    const rows = async filter => {
+      const all = 'IsActiveEntity eq false or SiblingEntity/IsActiveEntity eq null'
+      const { data } = await GET(`${base}/ApiRegistry?$filter=${filter} and (${all})&$select=ApiId&$orderby=ApiId`, as('platform'))
+      return data.value.map(r => r.ApiId + (r.IsActiveEntity ? '' : ' (bozza)'))
+    }
+    // Bozza non salvata DEPRECATED: compare con "Attivo: No"; con "Attivo: Sì" CAP mostra la versione salvata
+    expect(await rows('IsActive eq false')).to.deep.equal(['EDOCFILE (bozza)'])
+    expect(await rows('IsActive eq true')).to.deep.equal(['CV_ATTACH', 'EDOCFILE', 'PURCH_CONTR', 'PURCH_ORD', 'SUPPL_INV'])
+  })
+})
+
 describe('AdminPlatformService - FixedValues', () => {
 
   it('value help per dominio, in sola lettura', async () => {
