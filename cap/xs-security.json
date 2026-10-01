@@ -42,7 +42,7 @@
     },
     {
       "name": "Admin",
-      "description": "Editor + elimina, disattiva/riattiva, parametri",
+      "description": "Editor + disattiva/riattiva, parametri",
       "scope-references": [
         "$XSAPPNAME.Viewer",
         "$XSAPPNAME.Editor",

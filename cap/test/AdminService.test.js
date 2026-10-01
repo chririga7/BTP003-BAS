@@ -49,9 +49,10 @@ describe('AdminService - ruoli', () => {
     expect(await status(DELETE(Company('1000', false), as('editor')))).to.equal(204)
   })
 
-  it('editor non elimina, admin sì', async () => {
-    expect(await status(DELETE(Company('5000'), as('editor')))).to.equal(403)
-    expect(await status(DELETE(Company('5000'), as('admin')))).to.equal(204)
+  it('nessuna cancellazione fisica, nemmeno per admin: solo disattiva/riattiva', async () => {
+    expect(await status(DELETE(Company('5000'), as('admin')))).to.equal(405)
+    expect(await status(DELETE(Config('MAX_RETRY'), as('admin')))).to.equal(405)
+    expect(await status(DELETE(DocType('FATTURA', 'INCOMING'), as('admin')))).to.equal(405)
   })
 
   it('parametri: editor in sola lettura, admin modifica', async () => {

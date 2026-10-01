@@ -56,13 +56,13 @@ annotate AdminService.DocType with { IsActive @readonly };
 annotate AdminService.Company with @(restrict: [
   { grant: 'READ', to: 'Viewer' },
   { grant: ['CREATE', 'UPDATE', 'copyCompany'], to: 'Editor' },
-  { grant: ['DELETE', 'deactivate', 'reactivate'], to: 'Admin' }
+  { grant: ['deactivate', 'reactivate'], to: 'Admin' }
 ]);
 
 annotate AdminService.DocType with @(restrict: [
   { grant: 'READ', to: 'Viewer' },
   { grant: ['CREATE', 'UPDATE', 'copyDoctype'], to: 'Editor' },
-  { grant: ['DELETE', 'deactivate', 'reactivate'], to: 'Admin' }
+  { grant: ['deactivate', 'reactivate'], to: 'Admin' }
 ]);
 
 // Parametri globali: Editor in sola lettura.
@@ -70,3 +70,8 @@ annotate AdminService.Config with @(restrict: [
   { grant: 'READ', to: 'Viewer' },
   { grant: '*', to: 'Admin' }
 ]);
+
+// Nessuna cancellazione fisica (CONFIG_FRAMEWORK §6.3): soft delete con deactivate/reactivate.
+annotate AdminService.Company with @Capabilities.DeleteRestrictions.Deletable: false;
+annotate AdminService.Config  with @Capabilities.DeleteRestrictions.Deletable: false;
+annotate AdminService.DocType with @Capabilities.DeleteRestrictions.Deletable: false;

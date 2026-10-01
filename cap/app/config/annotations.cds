@@ -1,7 +1,7 @@
 using AdminService from '../../srv/admin-service';
 
 // Visibilità bottoni per ruolo: path al singleton Permissions (UI5 >= 1.100).
-// Company e DocType: Editor crea/modifica/copia; Config: solo Admin. Delete e (dis)attiva: solo Admin.
+// Company e DocType: Editor crea/modifica/copia; Config: solo Admin. (Dis)attiva: solo Admin, niente delete.
 
 // ============================================================
 // COMPANY — Anagrafica Società
@@ -19,7 +19,6 @@ annotate AdminService.Company with @(
 
   UI.CreateHidden: { $edmJson: { $Path: '/Permissions/editorHidden' } },
   UI.UpdateHidden: { $edmJson: { $Path: '/Permissions/editorHidden' } },
-  UI.DeleteHidden: { $edmJson: { $Path: '/Permissions/adminHidden' } },
 
   UI.SelectionFields: [ CompanyCode, Country, IsActive ],
 
@@ -100,7 +99,6 @@ annotate AdminService.Config with @(
 
   UI.CreateHidden: { $edmJson: { $Path: '/Permissions/adminHidden' } },
   UI.UpdateHidden: { $edmJson: { $Path: '/Permissions/adminHidden' } },
-  UI.DeleteHidden: { $edmJson: { $Path: '/Permissions/adminHidden' } },
 
   UI.SelectionFields: [ ConfigKey, IsActive ],
 
@@ -174,7 +172,6 @@ annotate AdminService.DocType with @(
 
   UI.CreateHidden: { $edmJson: { $Path: '/Permissions/editorHidden' } },
   UI.UpdateHidden: { $edmJson: { $Path: '/Permissions/editorHidden' } },
-  UI.DeleteHidden: { $edmJson: { $Path: '/Permissions/adminHidden' } },
 
   UI.SelectionFields: [ DocType, DocDirection, IsActive ],
 
