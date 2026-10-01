@@ -29,6 +29,8 @@ annotate AdminPlatformService.ApiRegistry with {
     ]
   };
   StatusCriticality @UI.Hidden;
+  // Lista: di default solo i record attivi in tutte le schede (CONFIG_FRAMEWORK §6.3, story 15.C9)
+  IsActive @Common.FilterDefaultValue: true;
 };
 
 annotate AdminPlatformService.AdapterRegistry with {
@@ -74,7 +76,7 @@ annotate AdminPlatformService.ApiRegistry with @(
     Description   : { Value: ApiDescription }
   },
 
-  UI.SelectionFields: [ ApiId, ApiStatus ],
+  UI.SelectionFields: [ ApiId, ApiStatus, IsActive ],
 
   UI.LineItem: [
     { Value: ApiId,          Label: 'ID API' },

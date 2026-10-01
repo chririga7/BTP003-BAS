@@ -79,6 +79,11 @@ annotate AdminService.Company actions {
   reactivate @Core.OperationAvailable: { $edmJson: { $And: [ { $Path: 'in/IsActiveEntity' }, { $Not: { $Path: 'in/IsActive' } } ] } };
 };
 
+// Lista: di default solo i record attivi in tutte le schede (CONFIG_FRAMEWORK §6.3, story 15.C9)
+annotate AdminService.Company with {
+  IsActive @Common.FilterDefaultValue: true;
+};
+
 // ============================================================
 // CONFIG — Parametri
 // ============================================================

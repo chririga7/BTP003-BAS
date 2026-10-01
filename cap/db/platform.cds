@@ -20,6 +20,9 @@ entity ApiReg : managed {
                                           when ApiStatus = 'PLANNED'    then 2
                                           when ApiStatus = 'DEPRECATED' then 1
                                           else 0 end);
+      // Filtro "Attivo" comune alle 3 schede della lista (stesso nome di ProvConfig.IsActive)
+      @title: 'Attivo'
+      IsActive          : Boolean = (case when ApiStatus = 'DEPRECATED' then false else true end);
 }
 
 // Registro Adapter Documento (ZDOC_ADAPTER_REG)
@@ -35,6 +38,8 @@ entity AdapterReg : managed {
                                           when AdapterStatus = 'PLANNED'    then 2
                                           when AdapterStatus = 'DEPRECATED' then 1
                                           else 0 end);
+      @title: 'Attivo'
+      IsActive          : Boolean = (case when AdapterStatus = 'DEPRECATED' then false else true end);
       Description       : String(100) @title: 'Descrizione';
 }
 
