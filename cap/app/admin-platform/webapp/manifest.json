@@ -46,6 +46,21 @@
       "compact": true,
       "cozy": true
     },
+    "extends": {
+      "extensions": {
+        "sap.ui.controllerExtensions": {
+          "sap.fe.templates.ObjectPage.ObjectPageController#z.doc.platform.adminplatform::ApiRegistryObjectPage": {
+            "controllerName": "z.doc.platform.adminplatform.ext.ProviderNotice"
+          },
+          "sap.fe.templates.ObjectPage.ObjectPageController#z.doc.platform.adminplatform::AdapterRegistryObjectPage": {
+            "controllerName": "z.doc.platform.adminplatform.ext.ProviderNotice"
+          },
+          "sap.fe.templates.ObjectPage.ObjectPageController#z.doc.platform.adminplatform::ProviderConfigObjectPage": {
+            "controllerName": "z.doc.platform.adminplatform.ext.ProviderNotice"
+          }
+        }
+      }
+    },
     "models": {
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
