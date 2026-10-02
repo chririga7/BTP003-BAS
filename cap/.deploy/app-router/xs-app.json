@@ -5,6 +5,12 @@
   ],
   "routes": [
     {
+      "source": "^/(config|admin-platform)/webapp/odata/(.*)$",
+      "target": "/odata/$2",
+      "destination": "srv-api",
+      "csrfProtection": true
+    },
+    {
       "source": "^/config/webapp/(.*)$",
       "target": "$1",
       "localDir": "resources/config/webapp",

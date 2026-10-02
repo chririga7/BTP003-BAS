@@ -1,0 +1,22 @@
+# yaml-language-server: $schema=https://ui5.github.io/cli/schema/ui5.yaml.json
+# Build per l'HTML5 Application Repository: zip con manifest.json e xs-app.json in radice.
+specVersion: '4.0'
+metadata:
+  name: admin-platform
+type: application
+resources:
+  configuration:
+    propertiesFileSourceEncoding: UTF-8
+builder:
+  resources:
+    excludes:
+      - "/test/**"
+      - "/localService/**"
+  customTasks:
+    - name: ui5-task-zipper
+      afterTask: generateVersionInfo
+      configuration:
+        archiveName: admin-platform
+        relativePaths: true
+        additionalFiles:
+          - xs-app.json

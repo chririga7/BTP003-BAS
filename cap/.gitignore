@@ -20,3 +20,6 @@ mta_archives/
 
 # UI copiata nell approuter in fase di build MTA
 .deploy/app-router/resources/
+
+# Build UI5 delle app per l'HTML5 repo
+dist/

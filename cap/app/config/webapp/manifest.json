@@ -15,7 +15,7 @@
     },
     "dataSources": {
       "mainService": {
-        "uri": "/odata/v4/admin/",
+        "uri": "odata/v4/admin/",
         "type": "OData",
         "settings": {
           "odataVersion": "4.0"
@@ -24,10 +24,12 @@
     },
     "crossNavigation": {
       "inbounds": {
-        "zdocconfig-display": {
-          "semanticObject": "zdocconfig",
-          "action": "display",
+        "ConfigConservazione-manage": {
+          "semanticObject": "ConfigConservazione",
+          "action": "manage",
           "title": "{{appTitle}}",
+          "subTitle": "{{appDescription}}",
+          "icon": "sap-icon://settings",
           "signature": {
             "parameters": {},
             "additionalParameters": "allowed"
@@ -220,5 +222,9 @@
       "ZDOC_CONFIG"
     ],
     "archeType": "transactional"
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "configconservazione"
   }
 }

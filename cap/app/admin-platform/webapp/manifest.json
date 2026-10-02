@@ -11,10 +11,25 @@
     "description": "{{appDescription}}",
     "dataSources": {
       "mainService": {
-        "uri": "/odata/v4/admin-platform/",
+        "uri": "odata/v4/admin-platform/",
         "type": "OData",
         "settings": {
           "odataVersion": "4.0"
+        }
+      }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "ConfigPiattaforma-manage": {
+          "semanticObject": "ConfigPiattaforma",
+          "action": "manage",
+          "title": "{{appTitle}}",
+          "subTitle": "{{appDescription}}",
+          "icon": "sap-icon://it-system",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
         }
       }
     }
@@ -189,5 +204,9 @@
   },
   "sap.fiori": {
     "archeType": "transactional"
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "configconservazione"
   }
 }

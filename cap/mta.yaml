@@ -4,6 +4,7 @@ version: 1.0.0
 description: "Configurazione Conservazione - società, parametri e tipi documento (CAP)"
 parameters:
   enable-parallel-deployments: true
+  deploy_mode: html5-repo
 build-parameters:
   before-all:
     - builder: custom
@@ -59,6 +60,80 @@ modules:
           app-protocol: ${protocol}
           app-uri: ${default-uri}
 
+  # UI per Work Zone: le app vanno nell'HTML5 Application Repository (approuter gestito da Work Zone)
+  - name: config-conservazione-app-deployer
+    type: com.sap.application.content
+    path: gen
+    requires:
+      - name: config-conservazione-html5-repo-host
+        parameters:
+          content-target: true
+    build-parameters:
+      build-result: app/
+      requires:
+        - name: configconservazioneconfig
+          artifacts:
+            - config.zip
+          target-path: app/
+        - name: configconservazioneadminplatform
+          artifacts:
+            - admin-platform.zip
+          target-path: app/
+
+  - name: configconservazioneconfig
+    type: html5
+    path: app/config
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm ci
+        - npm run build
+      supported-platforms: []
+
+  - name: configconservazioneadminplatform
+    type: html5
+    path: app/admin-platform
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm ci
+        - npm run build
+      supported-platforms: []
+
+  # Destination a livello di istanza (mai di subaccount): Work Zone trova le app tramite sap.cloud.service
+  - name: config-conservazione-destination-content
+    type: com.sap.application.content
+    requires:
+      - name: config-conservazione-destination
+        parameters:
+          content-target: true
+      - name: config-conservazione-html5-repo-host
+        parameters:
+          service-key:
+            name: config-conservazione-html5-repo-host-key
+      - name: config-conservazione-auth
+        parameters:
+          service-key:
+            name: config-conservazione-auth-key
+    parameters:
+      content:
+        instance:
+          existing_destinations_policy: update
+          destinations:
+            - Name: config-conservazione-html5-repository
+              ServiceInstanceName: config-conservazione-html5-repo-host
+              ServiceKeyName: config-conservazione-html5-repo-host-key
+              sap.cloud.service: configconservazione
+            - Name: config-conservazione-auth
+              Authentication: OAuth2UserTokenExchange
+              ServiceInstanceName: config-conservazione-auth
+              ServiceKeyName: config-conservazione-auth-key
+              sap.cloud.service: configconservazione
+    build-parameters:
+      no-source: true
+
 resources:
   - name: config-conservazione-auth
     type: org.cloudfoundry.managed-service
@@ -99,3 +174,31 @@ resources:
     parameters:
       service: hana
       service-plan: hdi-shared
+
+  - name: config-conservazione-html5-repo-host
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-plan: app-host
+
+  # Destination del backend per l'approuter gestito di Work Zone (instance-level, HTML5Runtime_enabled)
+  - name: config-conservazione-destination
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: destination
+      service-plan: lite
+      config:
+        HTML5Runtime_enabled: true
+        init_data:
+          instance:
+            existing_destinations_policy: update
+            destinations:
+              - Name: config-conservazione-srv-api
+                URL: ~{srv-api/srv-url}
+                Authentication: NoAuthentication
+                Type: HTTP
+                ProxyType: Internet
+                HTML5.DynamicDestination: true
+                HTML5.ForwardAuthToken: true
+    requires:
+      - name: srv-api

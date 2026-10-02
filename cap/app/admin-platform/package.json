@@ -1,0 +1,13 @@
+{
+  "name": "admin-platform",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Configurazione Piattaforma (ADMIN Archiva) per l'HTML5 Application Repository",
+  "scripts": {
+    "build": "ui5 build preload --clean-dest"
+  },
+  "devDependencies": {
+    "@ui5/cli": "^4",
+    "ui5-task-zipper": "^3"
+  }
+}
