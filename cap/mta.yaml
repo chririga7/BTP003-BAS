@@ -11,8 +11,6 @@ build-parameters:
       commands:
         - npm ci
         - npx cds build --production
-        # le UI Fiori sono servite dall'approuter (route localDir in xs-app.json)
-        - node -e "for (const a of ['config', 'admin-platform']) require('fs').cpSync('app/'+a+'/webapp', '.deploy/app-router/resources/'+a+'/webapp', {recursive:true})"
 modules:
   - name: config-conservazione-srv
     type: nodejs
@@ -37,28 +35,6 @@ modules:
       buildpack: nodejs_buildpack
     requires:
       - name: config-conservazione-db
-  - name: config-conservazione
-    type: approuter.nodejs
-    path: .deploy/app-router
-    build-parameters:
-      ignore: ["default-env.json"] # solo per test locale
-    parameters:
-      keep-existing-routes: true
-      disk-quota: 256M
-      memory: 256M
-    requires:
-      - name: srv-api
-        group: destinations
-        properties:
-          name: srv-api # must be used in xs-app.json as well
-          url: ~{srv-url}
-          forwardAuthToken: true
-      - name: config-conservazione-auth
-    provides:
-      - name: app-api
-        properties:
-          app-protocol: ${protocol}
-          app-uri: ${default-uri}
 
   # UI per Work Zone: le app vanno nell'HTML5 Application Repository (approuter gestito da Work Zone)
   - name: config-conservazione-app-deployer
@@ -148,8 +124,6 @@ resources:
           credential-types:
             - "binding-secret"
             - "x509"
-          redirect-uris:
-            - https://*~{app-api/app-uri}/**
         role-collections:
           - name: 'ConfigConservazione Viewer'
             description: 'Configurazione Conservazione - sola lettura'
@@ -167,8 +141,6 @@ resources:
             description: 'Configurazione Conservazione - ADMIN Archiva (piattaforma + clienti)'
             role-template-references:
               - '$XSAPPNAME.PlatformAdmin'
-    requires:
-      - name: app-api
   - name: config-conservazione-db
     type: com.sap.xs.hdi-container
     parameters:

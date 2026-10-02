@@ -13,7 +13,7 @@ Gira su Cloud Foundry (space `Space_Riga`), dati su SAP HANA Cloud, login XSUAA 
 | `app/config/` | app Fiori Elements V4 Configurazione Cliente (3 tab) + annotazioni UI |
 | `app/admin-platform/` | app Fiori Elements V4 Configurazione Piattaforma (3 tab) + annotazioni UI |
 | `test/` | test per ruolo (`npm test`) e dati demo (solo sviluppo) |
-| `xs-security.json`, `mta.yaml`, `.deploy/app-router/` | sicurezza, deploy MTA, approuter |
+| `xs-security.json`, `mta.yaml` | sicurezza, deploy MTA |
 
 ## Ruoli
 
@@ -52,8 +52,8 @@ npx mbt build -t mta_archives
 cf deploy mta_archives/config-conservazione_1.0.0.mtar
 ```
 
-URL: route del modulo `config-conservazione` (approuter); la radice apre l'app Cliente,
-l'app Piattaforma è su `/admin-platform/webapp/index.html`.
+UI: le app si aprono solo dal sito SAP Build Work Zone, standard edition (contenuto dal canale
+"HTML5 Apps", approuter gestito da Work Zone); non c'è un approuter standalone.
 
 ## API per il motore di conservazione
 
