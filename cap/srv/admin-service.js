@@ -15,7 +15,7 @@ export default class AdminService extends cds.ApplicationService {
 
     // Direzione dei Tipi Documento: dominio ZDOC_DOM_DIRECTION, anche nella copia
     const checkDirection = element => req =>
-      validateDomain(req, element, 'ZDOC_DOM_DIRECTION', v => `Direzione '${v}' non valida`)
+      validateDomain(req, element, 'ZDOC_DOM_DIRECTION', 'INVALID_DIRECTION')
     this.before(['CREATE', 'UPDATE'], DocType, checkDirection('DocDirection'))
     this.before('copyDoctype', DocType, checkDirection('NewDocDirection'))
 
@@ -38,7 +38,7 @@ export default class AdminService extends cds.ApplicationService {
   async copy(req, entity, table, newKeys) {
     const source = await this.activeSubject(req)
     if (await SELECT.one.from(table).where(newKeys))
-      return req.reject(409, `Esiste già un record con chiave ${Object.values(newKeys).join(' / ')}`)
+      return req.reject(409, 'RECORD_EXISTS', [Object.values(newKeys).join(' / ')])
     const columns = Object.values(table.elements)
       .filter(e => !e.value && !e['@cds.on.insert'] && !e['@cds.on.update'])
       .map(e => e.name)
@@ -51,7 +51,7 @@ export default class AdminService extends cds.ApplicationService {
     const source = await this.activeSubject(req)
     const keys = pick(source, Object.keys(table.keys))
     if (await SELECT.one.from(entity.drafts).where(keys))
-      return req.reject(409, 'Record in modifica: chiudere la bozza prima di cambiare lo stato')
+      return req.reject(409, 'RECORD_IN_DRAFT')
     await UPDATE(table).set({ IsActive }).where(keys)
     return this.run(SELECT.one.from(entity).where({ ...keys, IsActiveEntity: true }))
   }

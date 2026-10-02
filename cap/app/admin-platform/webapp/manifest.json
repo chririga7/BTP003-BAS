@@ -3,7 +3,11 @@
   "sap.app": {
     "id": "z.doc.platform.adminplatform",
     "type": "application",
-    "i18n": "i18n/i18n.properties",
+    "i18n": {
+      "bundleUrl": "i18n/i18n.properties",
+      "supportedLocales": ["", "it"],
+      "fallbackLocale": ""
+    },
     "applicationVersion": {
       "version": "1.0.0"
     },
@@ -80,7 +84,9 @@
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
         "settings": {
-          "bundleName": "z.doc.platform.adminplatform.i18n.i18n"
+          "bundleName": "z.doc.platform.adminplatform.i18n.i18n",
+          "supportedLocales": ["", "it"],
+          "fallbackLocale": ""
         }
       },
       "": {

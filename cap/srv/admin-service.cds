@@ -9,7 +9,7 @@ service AdminService {
   @odata.draft.enabled
   entity Company as projection on db.Company actions {
     action copyCompany(
-      NewCompanyCode : String(4) @mandatory @title: 'Nuovo Codice Società'
+      NewCompanyCode : String(4) @mandatory @title: '{i18n>NewCompanyCode}'
     ) returns Company;
     action deactivate() returns Company;
     action reactivate() returns Company;
@@ -18,7 +18,7 @@ service AdminService {
   @odata.draft.enabled
   entity Config as projection on db.Config actions {
     action copyConfig(
-      NewConfigKey : String(30) @mandatory @title: 'Nuova Chiave'
+      NewConfigKey : String(30) @mandatory @title: '{i18n>NewConfigKey}'
     ) returns Config;
     action deactivate() returns Config;
     action reactivate() returns Config;
@@ -27,8 +27,8 @@ service AdminService {
   @odata.draft.enabled
   entity DocType as projection on db.DocType actions {
     action copyDoctype(
-      NewDocType      : String(10) @mandatory @title: 'Nuovo Tipo Documento',
-      NewDocDirection : String(10) @mandatory @title: 'Nuova Direzione'
+      NewDocType      : String(10) @mandatory @title: '{i18n>NewDocType}',
+      NewDocDirection : String(10) @mandatory @title: '{i18n>NewDocDirection}'
     ) returns DocType;
     action deactivate() returns DocType;
     action reactivate() returns DocType;

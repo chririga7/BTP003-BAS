@@ -104,6 +104,7 @@
 <path d="M144.998 135.284C136.317 135.284 129.837 142.367 130.598 151.027C131.36 159.686 139.063 166.769 147.759 166.769C156.454 166.769 162.92 159.686 162.163 151.027C161.406 142.367 153.679 135.284 144.998 135.284ZM152.729 156.862C152.587 157.011 152.415 157.13 152.225 157.211C152.035 157.292 151.831 157.334 151.624 157.334C151.418 157.334 151.213 157.292 151.023 157.211C150.833 157.13 150.662 157.011 150.519 156.862L146.574 153.241L143.282 156.862C143.139 157.011 142.968 157.129 142.779 157.21C142.589 157.291 142.385 157.333 142.179 157.333C141.973 157.333 141.769 157.291 141.579 157.21C141.389 157.129 141.218 157.011 141.076 156.862C140.915 156.732 140.781 156.572 140.684 156.389C140.586 156.207 140.527 156.007 140.509 155.801C140.491 155.595 140.515 155.387 140.579 155.191C140.643 154.994 140.747 154.813 140.883 154.657L144.175 151.036L140.23 147.415C140.068 147.285 139.934 147.125 139.836 146.943C139.738 146.76 139.678 146.56 139.66 146.354C139.641 146.148 139.665 145.941 139.729 145.744C139.793 145.548 139.896 145.366 140.032 145.21C140.175 145.061 140.346 144.942 140.536 144.861C140.726 144.78 140.931 144.739 141.137 144.739C141.344 144.739 141.548 144.78 141.738 144.861C141.928 144.942 142.1 145.061 142.242 145.21L146.193 148.831L149.485 145.21C149.627 145.061 149.799 144.942 149.989 144.861C150.179 144.78 150.383 144.739 150.59 144.739C150.796 144.739 151.001 144.78 151.191 144.861C151.381 144.942 151.552 145.061 151.695 145.21C151.856 145.34 151.989 145.501 152.086 145.683C152.183 145.866 152.242 146.066 152.26 146.272C152.278 146.477 152.254 146.685 152.19 146.881C152.126 147.077 152.023 147.259 151.888 147.415L148.596 151.036L152.541 154.657C152.701 154.787 152.833 154.948 152.929 155.13C153.025 155.311 153.084 155.511 153.101 155.715C153.119 155.92 153.095 156.126 153.031 156.322C152.967 156.517 152.865 156.698 152.729 156.853V156.862Z" fill="#df1278"/>
 <path d="M144.744 131.653C142.276 131.617 139.828 132.1 137.559 133.07C135.291 134.039 133.252 135.475 131.576 137.282C129.908 139.118 128.646 141.283 127.871 143.638C127.097 145.992 126.827 148.482 127.081 150.947C128.021 161.539 137.427 170.179 148.027 170.179C150.494 170.214 152.942 169.731 155.21 168.761C157.479 167.792 159.518 166.357 161.194 164.55C162.863 162.714 164.126 160.548 164.9 158.193C165.675 155.838 165.944 153.347 165.69 150.881C164.763 140.27 155.367 131.653 144.744 131.653ZM160.479 163.875C158.894 165.581 156.967 166.936 154.824 167.851C152.68 168.767 150.368 169.223 148.036 169.19C137.906 169.19 128.948 160.967 128.059 150.862C127.817 148.532 128.069 146.177 128.798 143.95C129.528 141.723 130.718 139.674 132.291 137.934C133.876 136.229 135.802 134.875 137.945 133.96C140.088 133.046 142.399 132.591 144.73 132.624C154.86 132.624 163.823 140.843 164.707 150.947C164.95 153.277 164.699 155.632 163.97 157.859C163.242 160.086 162.053 162.136 160.479 163.875V163.875Z" fill="var(--sapContent_Illustrative_Color3"/>
 </svg>
+    <div lang="it">
     <h1>Impossibile aprire l'app</h1>
     <p>L'utente non è autorizzato ad accedere a questa applicazione.
         Contattare l'amministratore in relazione all'autorizzazione richiesta.</p>
@@ -112,12 +113,28 @@
     <p data-app="admin-platform">Configurazione Piattaforma: autorizzazione richiesta (role collection)
         <code>ConfigConservazione PlatformAdmin</code>.</p>
     <p>Dopo l'assegnazione dell'autorizzazione, chiudere il browser e accedere di nuovo.</p>
+    </div>
+    <div lang="en">
+    <h1>Sorry, the app couldn't be opened</h1>
+    <p>You're not authorized to access this application.
+        Please contact your administrator about the required authorization.</p>
+    <p data-app="config">Customer Configuration: required authorization (role collection)
+        <code>ConfigConservazione Viewer</code>, <code>Editor</code> or <code>Admin</code>.</p>
+    <p data-app="admin-platform">Platform Configuration: required authorization (role collection)
+        <code>ConfigConservazione PlatformAdmin</code>.</p>
+    <p>After the authorization has been assigned, close the browser and sign in again.</p>
+    </div>
 </main>
 <script>
     // Unica pagina 403 per tutto l'approuter: l'URL resta quello dell'app richiesta,
     // quindi mostriamo solo il ruolo di quell'app (senza JavaScript restano visibili entrambi).
     const app = location.pathname.startsWith('/admin-platform/') ? 'admin-platform' : 'config';
     document.querySelectorAll('[data-app]').forEach(p => { p.hidden = p.dataset.app !== app; });
+    // Lingua del browser: italiano se è la prima preferita, altrimenti inglese (come le app).
+    const lang = (navigator.language || '').toLowerCase().startsWith('it') ? 'it' : 'en';
+    document.querySelectorAll('main > [lang]').forEach(d => { d.hidden = d.lang !== lang; });
+    document.documentElement.lang = lang;
+    document.title = document.querySelector(`main > [lang="${lang}"] h1`).textContent;
 </script>
 </body>
 </html>

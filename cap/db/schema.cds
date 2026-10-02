@@ -6,35 +6,35 @@ using { managed } from '@sap/cds/common';
 // audit via aspect standard managed (createdAt/By, modifiedAt/By).
 
 entity Company : managed {
-  key CompanyCode       : String(4)  @title: 'Codice Società';
-      CompanyName       : String(60) @title: 'Ragione Sociale'  @mandatory;
-      TaxCode           : String(20) @title: 'Codice Fiscale / P.IVA';
-      Country           : String(3)  @title: 'Paese';
-      IsActive          : Boolean default true @title: 'Attiva';
+  key CompanyCode       : String(4)  @title: '{i18n>CompanyCode}';
+      CompanyName       : String(60) @title: '{i18n>CompanyName}'  @mandatory;
+      TaxCode           : String(20) @title: '{i18n>TaxCode}';
+      Country           : String(3)  @title: '{i18n>CompanyCountry}';
+      IsActive          : Boolean default true @title: '{i18n>ActiveFem}';
       StatusCriticality : Integer = (case when IsActive = true then 3 else 0 end);
 }
 
 entity Config : managed {
-  key ConfigKey         : String(30)  @title: 'Chiave';
-      ConfigValue       : String(255) @title: 'Valore';
-      Description       : String(255) @title: 'Descrizione';
-      IsActive          : Boolean default true @title: 'Attivo';
+  key ConfigKey         : String(30)  @title: '{i18n>ConfigKey}';
+      ConfigValue       : String(255) @title: '{i18n>ConfigValue}';
+      Description       : String(255) @title: '{i18n>Description}';
+      IsActive          : Boolean default true @title: '{i18n>Active}';
       StatusCriticality : Integer = (case when IsActive = true then 3 else 0 end);
 }
 
 entity DocType : managed {
-  key DocType           : String(10)  @title: 'Tipo Documento';
-  key DocDirection      : String(10)  @title: 'Direzione'; // dominio ZDOC_DOM_DIRECTION
-      ArchivaDocClass   : String(30)  @title: 'Classe Documento Archiva';
-      RetentionYears    : Integer     @title: 'Anni Conservazione';
-      AdapterId         : String(30)  @title: 'Adapter ID';
-      IsActive          : Boolean default true @title: 'Attivo';
+  key DocType           : String(10)  @title: '{i18n>DocType}';
+  key DocDirection      : String(10)  @title: '{i18n>DocDirection}'; // dominio ZDOC_DOM_DIRECTION
+      ArchivaDocClass   : String(30)  @title: '{i18n>ArchivaDocClass}';
+      RetentionYears    : Integer     @title: '{i18n>RetentionYears}';
+      AdapterId         : String(30)  @title: '{i18n>AdapterId}';
+      IsActive          : Boolean default true @title: '{i18n>Active}';
       StatusCriticality : Integer = (case when IsActive = true then 3 else 0 end);
-      WaitYellowDays    : Integer     @title: 'Giorni Attesa (giallo)';
-      WaitRedDays       : Integer     @title: 'Giorni Attesa (rosso)';
-      MaxRetry          : Integer     @title: 'Tentativi Max';
-      RetryIntvHours    : Integer     @title: 'Intervallo Retry (ore)';
-      FileExcludeExt    : String(255) @title: 'Estensioni Escluse';
-      SipNamingPat      : String(255) @title: 'Pattern Naming SIP';
-      AutoRetry         : Boolean     @title: 'Auto Retry';
+      WaitYellowDays    : Integer     @title: '{i18n>WaitYellowDays}';
+      WaitRedDays       : Integer     @title: '{i18n>WaitRedDays}';
+      MaxRetry          : Integer     @title: '{i18n>MaxRetry}';
+      RetryIntvHours    : Integer     @title: '{i18n>RetryIntvHours}';
+      FileExcludeExt    : String(255) @title: '{i18n>FileExcludeExt}';
+      SipNamingPat      : String(255) @title: '{i18n>SipNamingPat}';
+      AutoRetry         : Boolean     @title: '{i18n>AutoRetry}';
 }

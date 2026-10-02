@@ -8,11 +8,11 @@ using AdminService from '../../srv/admin-service';
 // ============================================================
 
 annotate AdminService.Company with @(
-  UI.SelectionVariant #Company: { Text: 'Società' },
+  UI.SelectionVariant #Company: { Text: '{i18n>Companies}' },
 
   UI.HeaderInfo: {
-    TypeName      : 'Società',
-    TypeNamePlural: 'Società',
+    TypeName      : '{i18n>Company}',
+    TypeNamePlural: '{i18n>Companies}',
     Title         : { Value: CompanyCode },
     Description   : { Value: CompanyName }
   },
@@ -27,30 +27,30 @@ annotate AdminService.Company with @(
     { Value: CompanyName },
     { Value: TaxCode },
     { Value: Country },
-    { $Type: 'UI.DataFieldForAnnotation', Target: '@UI.DataPoint#Active', Label: 'Attiva' },
-    { Value: modifiedAt, Label: 'Ultima Modifica' },
+    { $Type: 'UI.DataFieldForAnnotation', Target: '@UI.DataPoint#Active', Label: '{i18n>ActiveFem}' },
+    { Value: modifiedAt, Label: '{i18n>LastChanged}' },
     {
-      $Type: 'UI.DataFieldForAction', Action: 'AdminService.copyCompany', Label: 'Copia Società',
+      $Type: 'UI.DataFieldForAction', Action: 'AdminService.copyCompany', Label: '{i18n>CopyCompany}',
       ![@UI.Hidden]: { $edmJson: { $Path: '/Permissions/editorHidden' } }
     }
   ],
 
-  UI.DataPoint #Active: { Value: IsActive, Title: 'Attiva', Criticality: StatusCriticality },
+  UI.DataPoint #Active: { Value: IsActive, Title: '{i18n>ActiveFem}', Criticality: StatusCriticality },
 
   UI.Identification: [
     {
-      $Type: 'UI.DataFieldForAction', Action: 'AdminService.deactivate', Label: 'Disattiva',
+      $Type: 'UI.DataFieldForAction', Action: 'AdminService.deactivate', Label: '{i18n>Deactivate}',
       ![@UI.Hidden]: { $edmJson: { $Path: '/Permissions/adminHidden' } }
     },
     {
-      $Type: 'UI.DataFieldForAction', Action: 'AdminService.reactivate', Label: 'Riattiva',
+      $Type: 'UI.DataFieldForAction', Action: 'AdminService.reactivate', Label: '{i18n>Reactivate}',
       ![@UI.Hidden]: { $edmJson: { $Path: '/Permissions/adminHidden' } }
     }
   ],
 
   UI.Facets: [
-    { $Type: 'UI.ReferenceFacet', ID: 'DatiSocieta', Label: 'Dati Società', Target: '@UI.FieldGroup#DatiSocieta' },
-    { $Type: 'UI.ReferenceFacet', ID: 'Audit', Label: 'Audit', Target: '@UI.FieldGroup#Audit' }
+    { $Type: 'UI.ReferenceFacet', ID: 'DatiSocieta', Label: '{i18n>CompanyData}', Target: '@UI.FieldGroup#DatiSocieta' },
+    { $Type: 'UI.ReferenceFacet', ID: 'Audit', Label: '{i18n>Audit}', Target: '@UI.FieldGroup#Audit' }
   ],
 
   UI.FieldGroup #DatiSocieta: { Data: [
@@ -62,10 +62,10 @@ annotate AdminService.Company with @(
   ] },
 
   UI.FieldGroup #Audit: { Data: [
-    { Value: createdBy,  Label: 'Creato Da' },
-    { Value: createdAt,  Label: 'Creato Il' },
-    { Value: modifiedBy, Label: 'Modificato Da' },
-    { Value: modifiedAt, Label: 'Modificato Il' }
+    { Value: createdBy,  Label: '{i18n>AuditCreatedBy}' },
+    { Value: createdAt,  Label: '{i18n>AuditCreatedAt}' },
+    { Value: modifiedBy, Label: '{i18n>AuditChangedBy}' },
+    { Value: modifiedAt, Label: '{i18n>AuditChangedAt}' }
   ] }
 );
 
@@ -88,11 +88,11 @@ annotate AdminService.Company with {
 // ============================================================
 
 annotate AdminService.Config with @(
-  UI.SelectionVariant #Config: { Text: 'Parametri' },
+  UI.SelectionVariant #Config: { Text: '{i18n>Parameters}' },
 
   UI.HeaderInfo: {
-    TypeName      : 'Parametro',
-    TypeNamePlural: 'Parametri',
+    TypeName      : '{i18n>Parameter}',
+    TypeNamePlural: '{i18n>Parameters}',
     Title         : { Value: ConfigKey },
     Description   : { Value: Description }
   },
@@ -106,30 +106,30 @@ annotate AdminService.Config with @(
     { Value: ConfigKey },
     { Value: ConfigValue },
     { Value: Description },
-    { $Type: 'UI.DataFieldForAnnotation', Target: '@UI.DataPoint#Active', Label: 'Attivo' },
-    { Value: modifiedAt, Label: 'Ultima Modifica' },
+    { $Type: 'UI.DataFieldForAnnotation', Target: '@UI.DataPoint#Active', Label: '{i18n>Active}' },
+    { Value: modifiedAt, Label: '{i18n>LastChanged}' },
     {
-      $Type: 'UI.DataFieldForAction', Action: 'AdminService.copyConfig', Label: 'Copia Parametro',
+      $Type: 'UI.DataFieldForAction', Action: 'AdminService.copyConfig', Label: '{i18n>CopyParameter}',
       ![@UI.Hidden]: { $edmJson: { $Path: '/Permissions/adminHidden' } }
     }
   ],
 
-  UI.DataPoint #Active: { Value: IsActive, Title: 'Attivo', Criticality: StatusCriticality },
+  UI.DataPoint #Active: { Value: IsActive, Title: '{i18n>Active}', Criticality: StatusCriticality },
 
   UI.Identification: [
     {
-      $Type: 'UI.DataFieldForAction', Action: 'AdminService.deactivate', Label: 'Disattiva',
+      $Type: 'UI.DataFieldForAction', Action: 'AdminService.deactivate', Label: '{i18n>Deactivate}',
       ![@UI.Hidden]: { $edmJson: { $Path: '/Permissions/adminHidden' } }
     },
     {
-      $Type: 'UI.DataFieldForAction', Action: 'AdminService.reactivate', Label: 'Riattiva',
+      $Type: 'UI.DataFieldForAction', Action: 'AdminService.reactivate', Label: '{i18n>Reactivate}',
       ![@UI.Hidden]: { $edmJson: { $Path: '/Permissions/adminHidden' } }
     }
   ],
 
   UI.Facets: [
-    { $Type: 'UI.ReferenceFacet', ID: 'DatiConfig', Label: 'Dettaglio Parametro', Target: '@UI.FieldGroup#DatiConfig' },
-    { $Type: 'UI.ReferenceFacet', ID: 'AuditConfig', Label: 'Audit', Target: '@UI.FieldGroup#Audit' }
+    { $Type: 'UI.ReferenceFacet', ID: 'DatiConfig', Label: '{i18n>ParameterDetails}', Target: '@UI.FieldGroup#DatiConfig' },
+    { $Type: 'UI.ReferenceFacet', ID: 'AuditConfig', Label: '{i18n>Audit}', Target: '@UI.FieldGroup#Audit' }
   ],
 
   UI.FieldGroup #DatiConfig: { Data: [
@@ -140,10 +140,10 @@ annotate AdminService.Config with @(
   ] },
 
   UI.FieldGroup #Audit: { Data: [
-    { Value: createdBy,  Label: 'Creato Da' },
-    { Value: createdAt,  Label: 'Creato Il' },
-    { Value: modifiedBy, Label: 'Modificato Da' },
-    { Value: modifiedAt, Label: 'Modificato Il' }
+    { Value: createdBy,  Label: '{i18n>AuditCreatedBy}' },
+    { Value: createdAt,  Label: '{i18n>AuditCreatedAt}' },
+    { Value: modifiedBy, Label: '{i18n>AuditChangedBy}' },
+    { Value: modifiedAt, Label: '{i18n>AuditChangedAt}' }
   ] }
 );
 
@@ -161,11 +161,11 @@ annotate AdminService.Config actions {
 // ============================================================
 
 annotate AdminService.DocType with @(
-  UI.SelectionVariant #DocType: { Text: 'Tipi Documento' },
+  UI.SelectionVariant #DocType: { Text: '{i18n>DocTypes}' },
 
   UI.HeaderInfo: {
-    TypeName      : 'Tipo Documento',
-    TypeNamePlural: 'Tipi Documento',
+    TypeName      : '{i18n>DocType}',
+    TypeNamePlural: '{i18n>DocTypes}',
     Title         : { Value: DocType },
     Description   : { Value: DocDirection }
   },
@@ -178,34 +178,34 @@ annotate AdminService.DocType with @(
   UI.LineItem: [
     { Value: DocType },
     { Value: DocDirection },
-    { Value: ArchivaDocClass, Label: 'Classe Archiva' },
+    { Value: ArchivaDocClass, Label: '{i18n>ArchivaClass}' },
     { Value: RetentionYears },
-    { $Type: 'UI.DataFieldForAnnotation', Target: '@UI.DataPoint#Active', Label: 'Attivo' },
+    { $Type: 'UI.DataFieldForAnnotation', Target: '@UI.DataPoint#Active', Label: '{i18n>Active}' },
     { Value: MaxRetry },
-    { Value: modifiedAt, Label: 'Ultima Modifica' },
+    { Value: modifiedAt, Label: '{i18n>LastChanged}' },
     {
-      $Type: 'UI.DataFieldForAction', Action: 'AdminService.copyDoctype', Label: 'Copia Tipo Documento',
+      $Type: 'UI.DataFieldForAction', Action: 'AdminService.copyDoctype', Label: '{i18n>CopyDocType}',
       ![@UI.Hidden]: { $edmJson: { $Path: '/Permissions/editorHidden' } }
     }
   ],
 
-  UI.DataPoint #Active: { Value: IsActive, Title: 'Attivo', Criticality: StatusCriticality },
+  UI.DataPoint #Active: { Value: IsActive, Title: '{i18n>Active}', Criticality: StatusCriticality },
 
   UI.Identification: [
     {
-      $Type: 'UI.DataFieldForAction', Action: 'AdminService.deactivate', Label: 'Disattiva',
+      $Type: 'UI.DataFieldForAction', Action: 'AdminService.deactivate', Label: '{i18n>Deactivate}',
       ![@UI.Hidden]: { $edmJson: { $Path: '/Permissions/adminHidden' } }
     },
     {
-      $Type: 'UI.DataFieldForAction', Action: 'AdminService.reactivate', Label: 'Riattiva',
+      $Type: 'UI.DataFieldForAction', Action: 'AdminService.reactivate', Label: '{i18n>Reactivate}',
       ![@UI.Hidden]: { $edmJson: { $Path: '/Permissions/adminHidden' } }
     }
   ],
 
   UI.Facets: [
-    { $Type: 'UI.ReferenceFacet', ID: 'DatiDocType', Label: 'Configurazione', Target: '@UI.FieldGroup#DatiDocType' },
-    { $Type: 'UI.ReferenceFacet', ID: 'ParamDocType', Label: 'Parametri Avanzati', Target: '@UI.FieldGroup#ParamDocType' },
-    { $Type: 'UI.ReferenceFacet', ID: 'AuditDocType', Label: 'Audit', Target: '@UI.FieldGroup#Audit' }
+    { $Type: 'UI.ReferenceFacet', ID: 'DatiDocType', Label: '{i18n>Configuration}', Target: '@UI.FieldGroup#DatiDocType' },
+    { $Type: 'UI.ReferenceFacet', ID: 'ParamDocType', Label: '{i18n>AdvancedParameters}', Target: '@UI.FieldGroup#ParamDocType' },
+    { $Type: 'UI.ReferenceFacet', ID: 'AuditDocType', Label: '{i18n>Audit}', Target: '@UI.FieldGroup#Audit' }
   ],
 
   UI.FieldGroup #DatiDocType: { Data: [
@@ -228,10 +228,10 @@ annotate AdminService.DocType with @(
   ] },
 
   UI.FieldGroup #Audit: { Data: [
-    { Value: createdBy,  Label: 'Creato Da' },
-    { Value: createdAt,  Label: 'Creato Il' },
-    { Value: modifiedBy, Label: 'Modificato Da' },
-    { Value: modifiedAt, Label: 'Modificato Il' }
+    { Value: createdBy,  Label: '{i18n>AuditCreatedBy}' },
+    { Value: createdAt,  Label: '{i18n>AuditCreatedAt}' },
+    { Value: modifiedBy, Label: '{i18n>AuditChangedBy}' },
+    { Value: modifiedAt, Label: '{i18n>AuditChangedAt}' }
   ] }
 );
 

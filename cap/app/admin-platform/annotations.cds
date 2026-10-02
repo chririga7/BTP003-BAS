@@ -60,6 +60,15 @@ annotate AdminPlatformService.AdapterRegistry with {
 
 annotate AdminPlatformService.ProviderConfig with {
   ActiveCriticality @UI.Hidden;
+  // Categoria: si vede il testo tradotto, il filtro è una tendina sul dominio CONFIG_CATEGORY
+  ConfigCategory @Common.Text: ConfigCategoryText.Description @Common.TextArrangement: #TextOnly
+    @Common.ValueListWithFixedValues @Common.ValueList: {
+      CollectionPath: 'FixedValues', PresentationVariantQualifier: 'VH',
+      Parameters: [
+        { $Type: 'Common.ValueListParameterInOut', LocalDataProperty: ConfigCategory, ValueListProperty: 'ValueCode' },
+        { $Type: 'Common.ValueListParameterConstant', ValueListProperty: 'DomainName', Constant: 'CONFIG_CATEGORY' }
+      ]
+    };
 };
 
 // ============================================================
@@ -67,11 +76,11 @@ annotate AdminPlatformService.ProviderConfig with {
 // ============================================================
 
 annotate AdminPlatformService.ApiRegistry with @(
-  UI.SelectionVariant #ApiRegistry: { Text: 'Registro API' },
+  UI.SelectionVariant #ApiRegistry: { Text: '{i18n>ApiRegistry}' },
 
   UI.HeaderInfo: {
-    TypeName      : 'API',
-    TypeNamePlural: 'Registro API Sorgente',
+    TypeName      : '{i18n>Api}',
+    TypeNamePlural: '{i18n>SourceApiRegistry}',
     Title         : { Value: ApiId },
     Description   : { Value: ApiDescription }
   },
@@ -79,41 +88,41 @@ annotate AdminPlatformService.ApiRegistry with @(
   UI.SelectionFields: [ ApiId, ApiStatus, IsActive ],
 
   UI.LineItem: [
-    { Value: ApiId,          Label: 'ID API' },
-    { Value: ApiDescription, Label: 'Descrizione' },
-    { Value: OdataVersion,   Label: 'Versione OData' },
-    { Value: ApiStatus,      Label: 'Stato', Criticality: StatusCriticality }
+    { Value: ApiId,          Label: '{i18n>ApiId}' },
+    { Value: ApiDescription, Label: '{i18n>Description}' },
+    { Value: OdataVersion,   Label: '{i18n>OdataVersion}' },
+    { Value: ApiStatus,      Label: '{i18n>Status}', Criticality: StatusCriticality }
   ],
 
   UI.Identification: [
-    { $Type: 'UI.DataFieldForAction', Action: 'AdminPlatformService.deactivate', Label: 'Disattiva' },
-    { $Type: 'UI.DataFieldForAction', Action: 'AdminPlatformService.reactivate', Label: 'Riattiva' }
+    { $Type: 'UI.DataFieldForAction', Action: 'AdminPlatformService.deactivate', Label: '{i18n>Deactivate}' },
+    { $Type: 'UI.DataFieldForAction', Action: 'AdminPlatformService.reactivate', Label: '{i18n>Reactivate}' }
   ],
 
   UI.Facets: [
-    { $Type: 'UI.ReferenceFacet', ID: 'GeneralInfo', Label: 'Dettaglio API', Target: '@UI.FieldGroup#GeneralInfo' },
-    { $Type: 'UI.ReferenceFacet', ID: 'Technical', Label: 'Dettagli Tecnici', Target: '@UI.FieldGroup#Technical' },
-    { $Type: 'UI.ReferenceFacet', ID: 'Audit', Label: 'Audit', Target: '@UI.FieldGroup#Audit' }
+    { $Type: 'UI.ReferenceFacet', ID: 'GeneralInfo', Label: '{i18n>ApiDetails}', Target: '@UI.FieldGroup#GeneralInfo' },
+    { $Type: 'UI.ReferenceFacet', ID: 'Technical', Label: '{i18n>TechnicalDetails}', Target: '@UI.FieldGroup#Technical' },
+    { $Type: 'UI.ReferenceFacet', ID: 'Audit', Label: '{i18n>Audit}', Target: '@UI.FieldGroup#Audit' }
   ],
 
   UI.FieldGroup #GeneralInfo: { Data: [
-    { Value: ApiId,          Label: 'ID API' },
-    { Value: ApiDescription, Label: 'Descrizione' },
-    { Value: OdataVersion,   Label: 'Versione OData' },
-    { Value: ApiStatus,      Label: 'Stato' }
+    { Value: ApiId,          Label: '{i18n>ApiId}' },
+    { Value: ApiDescription, Label: '{i18n>Description}' },
+    { Value: OdataVersion,   Label: '{i18n>OdataVersion}' },
+    { Value: ApiStatus,      Label: '{i18n>Status}' }
   ] },
 
   UI.FieldGroup #Technical: { Data: [
-    { Value: EntitySet, Label: 'Entity Set' },
-    { Value: BasePath,  Label: 'Base Path' },
-    { Value: ScmName,   Label: 'Service Consumption Model' }
+    { Value: EntitySet, Label: '{i18n>EntitySet}' },
+    { Value: BasePath,  Label: '{i18n>BasePath}' },
+    { Value: ScmName,   Label: '{i18n>ScmName}' }
   ] },
 
   UI.FieldGroup #Audit: { Data: [
-    { Value: createdBy,  Label: 'Creato da' },
-    { Value: createdAt,  Label: 'Creato il' },
-    { Value: modifiedBy, Label: 'Modificato da' },
-    { Value: modifiedAt, Label: 'Modificato il' }
+    { Value: createdBy,  Label: '{i18n>AuditCreatedBy}' },
+    { Value: createdAt,  Label: '{i18n>AuditCreatedAt}' },
+    { Value: modifiedBy, Label: '{i18n>AuditChangedBy}' },
+    { Value: modifiedAt, Label: '{i18n>AuditChangedAt}' }
   ] }
 );
 
@@ -129,11 +138,11 @@ annotate AdminPlatformService.ApiRegistry actions {
 // ============================================================
 
 annotate AdminPlatformService.AdapterRegistry with @(
-  UI.SelectionVariant #AdapterRegistry: { Text: 'Registro Adapter' },
+  UI.SelectionVariant #AdapterRegistry: { Text: '{i18n>AdapterRegistry}' },
 
   UI.HeaderInfo: {
-    TypeName      : 'Adapter',
-    TypeNamePlural: 'Registro Adapter Documento',
+    TypeName      : '{i18n>Adapter}',
+    TypeNamePlural: '{i18n>DocAdapterRegistry}',
     Title         : { Value: AdapterId },
     Description   : { Value: Description }
   },
@@ -141,45 +150,45 @@ annotate AdminPlatformService.AdapterRegistry with @(
   UI.SelectionFields: [ AdapterId, DocType, ErpFamily, AdapterStatus ],
 
   UI.LineItem: [
-    { Value: AdapterId,     Label: 'ID Adapter' },
-    { Value: AdapterClass,  Label: 'Classe ABAP' },
-    { Value: DocType,       Label: 'Tipo Documento' },
-    { Value: DocDirection,  Label: 'Direzione' },
-    { Value: ErpFamily,     Label: 'Famiglia ERP' },
-    { Value: AdapterStatus, Label: 'Stato', Criticality: StatusCriticality },
-    { Value: Description,   Label: 'Descrizione' }
+    { Value: AdapterId,     Label: '{i18n>AdapterId}' },
+    { Value: AdapterClass,  Label: '{i18n>AdapterClass}' },
+    { Value: DocType,       Label: '{i18n>DocType}' },
+    { Value: DocDirection,  Label: '{i18n>DocDirection}' },
+    { Value: ErpFamily,     Label: '{i18n>ErpFamily}' },
+    { Value: AdapterStatus, Label: '{i18n>Status}', Criticality: StatusCriticality },
+    { Value: Description,   Label: '{i18n>Description}' }
   ],
 
   UI.Identification: [
-    { $Type: 'UI.DataFieldForAction', Action: 'AdminPlatformService.deactivate', Label: 'Disattiva' },
-    { $Type: 'UI.DataFieldForAction', Action: 'AdminPlatformService.reactivate', Label: 'Riattiva' }
+    { $Type: 'UI.DataFieldForAction', Action: 'AdminPlatformService.deactivate', Label: '{i18n>Deactivate}' },
+    { $Type: 'UI.DataFieldForAction', Action: 'AdminPlatformService.reactivate', Label: '{i18n>Reactivate}' }
   ],
 
   UI.Facets: [
-    { $Type: 'UI.ReferenceFacet', ID: 'GeneralInfo', Label: 'Dettaglio Adapter', Target: '@UI.FieldGroup#GeneralInfo' },
-    { $Type: 'UI.ReferenceFacet', ID: 'Mapping', Label: 'Mapping Documento', Target: '@UI.FieldGroup#Mapping' },
-    { $Type: 'UI.ReferenceFacet', ID: 'Audit', Label: 'Audit', Target: '@UI.FieldGroup#Audit' }
+    { $Type: 'UI.ReferenceFacet', ID: 'GeneralInfo', Label: '{i18n>AdapterDetails}', Target: '@UI.FieldGroup#GeneralInfo' },
+    { $Type: 'UI.ReferenceFacet', ID: 'Mapping', Label: '{i18n>DocMapping}', Target: '@UI.FieldGroup#Mapping' },
+    { $Type: 'UI.ReferenceFacet', ID: 'Audit', Label: '{i18n>Audit}', Target: '@UI.FieldGroup#Audit' }
   ],
 
   UI.FieldGroup #GeneralInfo: { Data: [
-    { Value: AdapterId,     Label: 'ID Adapter' },
-    { Value: AdapterClass,  Label: 'Classe ABAP' },
-    { Value: AdapterStatus, Label: 'Stato' },
-    { Value: Description,   Label: 'Descrizione' }
+    { Value: AdapterId,     Label: '{i18n>AdapterId}' },
+    { Value: AdapterClass,  Label: '{i18n>AdapterClass}' },
+    { Value: AdapterStatus, Label: '{i18n>Status}' },
+    { Value: Description,   Label: '{i18n>Description}' }
   ] },
 
   UI.FieldGroup #Mapping: { Data: [
-    { Value: DocType,      Label: 'Tipo Documento' },
-    { Value: DocDirection, Label: 'Direzione' },
-    { Value: ErpFamily,    Label: 'Famiglia ERP' },
-    { Value: RequiredApis, Label: 'API Richieste' }
+    { Value: DocType,      Label: '{i18n>DocType}' },
+    { Value: DocDirection, Label: '{i18n>DocDirection}' },
+    { Value: ErpFamily,    Label: '{i18n>ErpFamily}' },
+    { Value: RequiredApis, Label: '{i18n>RequiredApis}' }
   ] },
 
   UI.FieldGroup #Audit: { Data: [
-    { Value: createdBy,  Label: 'Creato da' },
-    { Value: createdAt,  Label: 'Creato il' },
-    { Value: modifiedBy, Label: 'Modificato da' },
-    { Value: modifiedAt, Label: 'Modificato il' }
+    { Value: createdBy,  Label: '{i18n>AuditCreatedBy}' },
+    { Value: createdAt,  Label: '{i18n>AuditCreatedAt}' },
+    { Value: modifiedBy, Label: '{i18n>AuditChangedBy}' },
+    { Value: modifiedAt, Label: '{i18n>AuditChangedAt}' }
   ] }
 );
 
@@ -195,11 +204,11 @@ annotate AdminPlatformService.AdapterRegistry actions {
 // ============================================================
 
 annotate AdminPlatformService.ProviderConfig with @(
-  UI.SelectionVariant #ProviderConfig: { Text: 'Configurazione Provider' },
+  UI.SelectionVariant #ProviderConfig: { Text: '{i18n>ProviderConfig}' },
 
   UI.HeaderInfo: {
-    TypeName      : 'Parametro Provider',
-    TypeNamePlural: 'Configurazione Provider',
+    TypeName      : '{i18n>ProviderParameter}',
+    TypeNamePlural: '{i18n>ProviderConfig}',
     Title         : { Value: ConfigKey },
     Description   : { Value: Description }
   },
@@ -207,35 +216,36 @@ annotate AdminPlatformService.ProviderConfig with @(
   UI.SelectionFields: [ ConfigKey, ConfigCategory ],
 
   UI.LineItem: [
-    { Value: ConfigKey,      Label: 'Chiave Parametro' },
-    { Value: ConfigValue,    Label: 'Valore' },
-    { Value: Description,    Label: 'Descrizione' },
-    { Value: IsActive,       Label: 'Attivo', Criticality: ActiveCriticality },
-    { Value: ConfigCategory, Label: 'Categoria' }
+    { Value: ConfigKey,      Label: '{i18n>ParameterKey}' },
+    { Value: ConfigValue,    Label: '{i18n>ConfigValue}' },
+    { Value: Description,    Label: '{i18n>Description}' },
+    { Value: IsActive,       Label: '{i18n>Active}', Criticality: ActiveCriticality },
+    // Larghezza fissa: senza, FE la stima sui 100 caratteri della descrizione e nasconde la colonna sotto i ~1320 px
+    { Value: ConfigCategory, Label: '{i18n>ConfigCategory}', ![@HTML5.CssDefaults]: { width: '12rem' } }
   ],
 
   UI.Identification: [
-    { $Type: 'UI.DataFieldForAction', Action: 'AdminPlatformService.deactivate', Label: 'Disattiva' },
-    { $Type: 'UI.DataFieldForAction', Action: 'AdminPlatformService.reactivate', Label: 'Riattiva' }
+    { $Type: 'UI.DataFieldForAction', Action: 'AdminPlatformService.deactivate', Label: '{i18n>Deactivate}' },
+    { $Type: 'UI.DataFieldForAction', Action: 'AdminPlatformService.reactivate', Label: '{i18n>Reactivate}' }
   ],
 
   UI.Facets: [
-    { $Type: 'UI.ReferenceFacet', ID: 'GeneralInfo', Label: 'Dettaglio Parametro', Target: '@UI.FieldGroup#GeneralInfo' },
-    { $Type: 'UI.ReferenceFacet', ID: 'Audit', Label: 'Audit', Target: '@UI.FieldGroup#Audit' }
+    { $Type: 'UI.ReferenceFacet', ID: 'GeneralInfo', Label: '{i18n>ParameterDetails}', Target: '@UI.FieldGroup#GeneralInfo' },
+    { $Type: 'UI.ReferenceFacet', ID: 'Audit', Label: '{i18n>Audit}', Target: '@UI.FieldGroup#Audit' }
   ],
 
   UI.FieldGroup #GeneralInfo: { Data: [
-    { Value: ConfigKey,   Label: 'Chiave Parametro' },
-    { Value: ConfigValue, Label: 'Valore' },
-    { Value: Description, Label: 'Descrizione' },
-    { Value: IsActive,    Label: 'Attivo' }
+    { Value: ConfigKey,   Label: '{i18n>ParameterKey}' },
+    { Value: ConfigValue, Label: '{i18n>ConfigValue}' },
+    { Value: Description, Label: '{i18n>Description}' },
+    { Value: IsActive,    Label: '{i18n>Active}' }
   ] },
 
   UI.FieldGroup #Audit: { Data: [
-    { Value: createdBy,  Label: 'Creato da' },
-    { Value: createdAt,  Label: 'Creato il' },
-    { Value: modifiedBy, Label: 'Modificato da' },
-    { Value: modifiedAt, Label: 'Modificato il' }
+    { Value: createdBy,  Label: '{i18n>AuditCreatedBy}' },
+    { Value: createdAt,  Label: '{i18n>AuditCreatedAt}' },
+    { Value: modifiedBy, Label: '{i18n>AuditChangedBy}' },
+    { Value: modifiedAt, Label: '{i18n>AuditChangedAt}' }
   ] }
 );
 

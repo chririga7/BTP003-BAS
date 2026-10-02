@@ -120,13 +120,13 @@ describe('AdminService - direzione dei tipi documento', () => {
   it('create con direzione non ammessa → 400', async () => {
     await POST(`${admin}/DocType`, { DocType: 'ORDINE', DocDirection: 'ENTRAMBE' }, as('editor'))
     const res = await failure(POST(`${DocTypeDraft('ORDINE', 'ENTRAMBE')}/AdminService.draftActivate`, {}, as('editor')))
-    expect(res).to.containSubset({ status: 400, message: "Direzione 'ENTRAMBE' non valida" })
+    expect(res).to.containSubset({ status: 400, message: "Invalid direction 'ENTRAMBE'" })
   })
 
   it('copia con direzione non ammessa → 400, in minuscolo viene normalizzata', async () => {
     const copy = data => POST(`${DocType('DDT', 'OUTGOING')}/AdminService.copyDoctype`, data, as('editor'))
     expect(await failure(copy({ NewDocType: 'DDT', NewDocDirection: 'X' })))
-      .to.containSubset({ status: 400, message: "Direzione 'X' non valida" })
+      .to.containSubset({ status: 400, message: "Invalid direction 'X'" })
     const { data } = await copy({ NewDocType: 'DDT', NewDocDirection: 'incoming' })
     expect(data).to.containSubset({ DocType: 'DDT', DocDirection: 'INCOMING', ArchivaDocClass: 'DDT_USCITA' })
   })
@@ -134,5 +134,31 @@ describe('AdminService - direzione dei tipi documento', () => {
   it('la tendina espone solo i valori della direzione', async () => {
     const { data } = await GET(`${admin}/FixedValues?$orderby=SortOrder`, as('viewer'))
     expect(data.value.map(v => v.ValueCode)).to.deep.equal(['INCOMING', 'OUTGOING', 'BOTH'])
+  })
+})
+
+// Testi in inglese di default, in italiano con Accept-Language: it (come la UI in Work Zone)
+describe('AdminService - lingua', () => {
+  beforeEach(test.data.reset)
+
+  const failure = p => p.then(() => ({}), e => ({ status: e.status, ...e.response?.data?.error }))
+  const lang = (user, language) => ({ ...as(user), headers: { 'Accept-Language': language } })
+
+  it('label del $metadata in inglese o in italiano', async () => {
+    expect((await GET(`${admin}/$metadata`, as('viewer'))).data).to.include('Company Code')
+    expect((await GET(`${admin}/$metadata`, lang('viewer', 'it'))).data).to.include('Codice Società')
+  })
+
+  it('messaggi in inglese o in italiano', async () => {
+    const copy = language => failure(POST(`${Company('1000')}/AdminService.copyCompany`, { NewCompanyCode: '2000' }, lang('editor', language)))
+    expect(await copy('en')).to.containSubset({ status: 409, message: 'A record with key 2000 already exists' })
+    expect(await copy('it-IT')).to.containSubset({ status: 409, message: 'Esiste già un record con chiave 2000' })
+  })
+
+  it('descrizioni dei valori ammessi tradotte', async () => {
+    const texts = async language => (await GET(`${admin}/FixedValues?$orderby=SortOrder`, lang('viewer', language))).data.value.map(v => v.Description)
+    expect(await texts('en')).to.deep.equal(['Incoming (received)', 'Outgoing (issued)', 'Both'])
+    expect(await texts('it')).to.deep.equal(['Passivo (ingresso)', 'Attivo (uscita)', 'Entrambi'])
+    expect(await texts('de')).to.deep.equal(['Incoming (received)', 'Outgoing (issued)', 'Both'])
   })
 })

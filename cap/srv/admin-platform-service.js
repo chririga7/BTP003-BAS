@@ -6,13 +6,13 @@ const { SELECT, UPDATE } = cds.ql
 // Campi con dominio da validare contro FixedValues (ABAP validateDomainValues).
 const DOMAIN_FIELDS = {
   ApiRegistry: [
-    ['OdataVersion', 'ZDOC_DOM_ODATA_VER', v => `Versione OData '${v}' non valida`],
-    ['ApiStatus', 'ZDOC_DOM_STATUS', v => `Stato '${v}' non valido`]
+    ['OdataVersion', 'ZDOC_DOM_ODATA_VER', 'INVALID_ODATA_VERSION'],
+    ['ApiStatus', 'ZDOC_DOM_STATUS', 'INVALID_STATUS']
   ],
   AdapterRegistry: [
-    ['DocDirection', 'ZDOC_DOM_DIRECTION', v => `Direzione '${v}' non valida`],
-    ['ErpFamily', 'ZDOC_DOM_ERP_FAMILY', v => `Famiglia ERP '${v}' non valida`],
-    ['AdapterStatus', 'ZDOC_DOM_STATUS', v => `Stato '${v}' non valido`]
+    ['DocDirection', 'ZDOC_DOM_DIRECTION', 'INVALID_DIRECTION'],
+    ['ErpFamily', 'ZDOC_DOM_ERP_FAMILY', 'INVALID_ERP_FAMILY'],
+    ['AdapterStatus', 'ZDOC_DOM_STATUS', 'INVALID_STATUS']
   ]
 }
 
@@ -54,7 +54,7 @@ export default class AdminPlatformService extends cds.ApplicationService {
     const keys = Object.fromEntries(Object.keys(entity.keys)
       .filter(k => k !== 'IsActiveEntity').map(k => [k, source[k]]))
     if (await SELECT.one.from(entity.drafts).where(keys))
-      return req.reject(409, 'Record in modifica: chiudere la bozza prima di cambiare lo stato')
+      return req.reject(409, 'RECORD_IN_DRAFT')
     await UPDATE(entity).set({ [field]: value }).where(keys)
     return this.run(SELECT.one.from(entity).where({ ...keys, IsActiveEntity: true }))
   }

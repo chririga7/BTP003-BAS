@@ -49,12 +49,12 @@ describe('AdminPlatformService - ApiRegistry', () => {
 
   it('create con valore di dominio errato → 400 con messaggio', async () => {
     const res = await failure(create('ApiRegistry', Api('BAD', false), { ApiId: 'BAD', OdataVersion: 'V3' }))
-    expect(res).to.containSubset({ status: 400, message: "Versione OData 'V3' non valida" })
+    expect(res).to.containSubset({ status: 400, message: "Invalid OData version 'V3'" })
   })
 
   it('validazione anche in modifica', async () => {
     const res = await failure(edit(Api('EDOCFILE'), Api('EDOCFILE', false), { ApiStatus: 'OBSOLETE' }))
-    expect(res).to.containSubset({ status: 400, message: "Stato 'OBSOLETE' non valido" })
+    expect(res).to.containSubset({ status: 400, message: "Invalid status 'OBSOLETE'" })
   })
 
   it('valori di dominio in maiuscolo', async () => {
@@ -91,7 +91,7 @@ describe('AdminPlatformService - AdapterRegistry', () => {
     const res = await failure(create('AdapterRegistry', Adapter('BAD', false),
       { AdapterId: 'BAD', DocDirection: 'ENTRAMBE', ErpFamily: 'SAP' }))
     expect(res.status).to.equal(400)
-    expect(res.details.map(d => d.message)).to.deep.equal(["Direzione 'ENTRAMBE' non valida", "Famiglia ERP 'SAP' non valida"])
+    expect(res.details.map(d => d.message)).to.deep.equal(["Invalid direction 'ENTRAMBE'", "Invalid ERP family 'SAP'"])
   })
 
   it('deactivate → DEPRECATED', async () => {
@@ -106,15 +106,30 @@ describe('AdminPlatformService - ProviderConfig', () => {
   it('create forza IsActive = true', async () => {
     await create('ProviderConfig', Prov('ARCHIVA_ENDPOINT', false), { ConfigKey: 'ARCHIVA_ENDPOINT', IsActive: false })
     const { data } = await GET(Prov('ARCHIVA_ENDPOINT'), as('platform'))
-    expect(data).to.containSubset({ IsActive: true, ActiveCriticality: 3, ConfigCategory: 'Archiva' })
+    expect(data).to.containSubset({ IsActive: true, ActiveCriticality: 3, ConfigCategory: 'ARCHIVA' })
   })
 
   it('categoria calcolata dal prefisso della chiave', async () => {
     const { data } = await GET(`${base}/ProviderConfig?$filter=IsActiveEntity eq true&$select=ConfigKey,ConfigCategory`, as('platform'))
     const category = Object.fromEntries(data.value.map(r => [r.ConfigKey, r.ConfigCategory]))
     expect(category).to.containSubset({
-      CONSERVATORE_CF: 'Conservatore', APP_NAME: 'Applicazione', HASH_ZIP_ALGO: 'Algoritmi', IDV_NAMESPACE: 'Standard'
+      CONSERVATORE_CF: 'CONSERVATORE', APP_NAME: 'APP', HASH_ZIP_ALGO: 'HASH', IDV_NAMESPACE: 'IDV'
     })
+  })
+
+  it('testo della categoria tradotto, anche sulle bozze e per le chiavi senza prefisso noto', async () => {
+    const query = '?$select=ConfigKey,ConfigCategory&$expand=ConfigCategoryText($select=Description)'
+    const text = r => `${r.ConfigCategory}: ${r.ConfigCategoryText?.Description}`
+    const lang = language => ({ ...as('platform'), headers: { 'Accept-Language': language } })
+    const texts = async language => Object.fromEntries(
+      (await GET(`${base}/ProviderConfig${query}`, lang(language))).data.value.map(r => [r.ConfigKey, text(r)]))
+    expect(await texts('it')).to.containSubset({
+      CONSERVATORE_CF: 'CONSERVATORE: Conservatore', APP_NAME: 'APP: Applicazione', HASH_ZIP_ALGO: 'HASH: Algoritmi', IDV_NAMESPACE: 'IDV: Standard'
+    })
+    expect(await texts('en')).to.containSubset({ CONSERVATORE_CF: 'CONSERVATORE: Preservation Provider' })
+    await POST(`${base}/ProviderConfig`, { ConfigKey: 'TIMEOUT' }, as('platform'))
+    expect(text((await GET(`${Prov('TIMEOUT', false)}${query}`, lang('it'))).data)).to.equal('OTHER: Altro')
+    expect(text((await GET(`${Prov('TIMEOUT', false)}${query}`, lang('en'))).data)).to.equal('OTHER: Other')
   })
 
   it('deactivate → IsActive false, reactivate → true', async () => {
